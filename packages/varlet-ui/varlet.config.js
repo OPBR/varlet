@@ -38,6 +38,14 @@ module.exports = {
       },
       {
         text: {
+          'zh-CN': '暗黑模式',
+          'en-US': 'Dark Mode',
+        },
+        doc: 'themes',
+        type: 2,
+      },
+      {
+        text: {
           'zh-CN': '浏览器适配',
           'en-US': 'Browser Adaptation',
         },
@@ -176,6 +184,14 @@ module.exports = {
           'en-US': 'Collapse',
         },
         doc: 'collapse',
+        type: 2,
+      },
+      {
+        text: {
+          'zh-CN': 'Space 间隔',
+          'en-US': 'Space',
+        },
+        doc: 'space',
         type: 2,
       },
       {

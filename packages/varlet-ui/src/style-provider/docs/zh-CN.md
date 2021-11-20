@@ -17,6 +17,8 @@
   --icon-size-sm: 18px;
   --icon-size-md: 20px;
   --icon-size-lg: 22px;
+  --color-body: #fff;
+  --color-text: #333;
   --color-primary: #3a7afe;
   --color-info: #00afef;
   --color-success: #00c48f;
@@ -118,7 +120,7 @@ export default {
     let rootStyleVars = null
 
     const darkTheme = {
-      '--color-primary': '#000'
+      '--color-primary': '#3f51b5'
     }
     
     const toggleRootTheme = () => {

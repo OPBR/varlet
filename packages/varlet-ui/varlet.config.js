@@ -523,4 +523,11 @@ module.exports = {
   highlight: {
     style: './highlight.css',
   },
+  moduleCompatible: {
+    "import dayjs from 'dayjs/esm'\n": "import dayjs from 'dayjs'\n",
+    "import isSameOrBefore from 'dayjs/esm/plugin/isSameOrBefore'\n":
+      "import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'\n",
+    "import isSameOrAfter from 'dayjs/esm/plugin/isSameOrAfter'\n":
+      "import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'\n",
+  },
 }

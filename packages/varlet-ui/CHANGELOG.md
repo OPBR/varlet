@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.7](https://github.com/haoziqaq/varlet/compare/v1.23.6...v1.23.7) (2021-11-23)
+
+
+### Bug Fixes
+
+* **loading:** add color for circle type & update doc ([3457394](https://github.com/haoziqaq/varlet/commit/345739466b8109e63205eee720d391a328d30ca7))
+* **loading:** remove radius prop & add color for circle type & update doc ([3a9dfe0](https://github.com/haoziqaq/varlet/commit/3a9dfe07886b245d686b454bfa1aa975b7e223f5))
+* **ui/themes, cli:** fix themes types ([f29511a](https://github.com/haoziqaq/varlet/commit/f29511a016edb462bdf578a6b5a19fbe10a22158))
+
+
+### Reverts
+
+* revert fix loading ([b97b8b9](https://github.com/haoziqaq/varlet/commit/b97b8b96e6f5f3c5f22f0f93eedc3e39b44e5344))
+
+
+
+
+
+## [1.23.6](https://github.com/haoziqaq/varlet/compare/v1.23.5...v1.23.6) (2021-11-22)
+
+
+### Bug Fixes
+
+* **date-picker:** css specificity ([565002b](https://github.com/haoziqaq/varlet/commit/565002bf78b0374b6b9f411df95d5e342f4ce626))
+
+
+
+
+
+## [1.23.5](https://github.com/haoziqaq/varlet/compare/v1.23.4...v1.23.5) (2021-11-21)
+
+
+### Bug Fixes
+
+* **cli:** add module moduleCompatible option in varlet.config.js ([0b1d95f](https://github.com/haoziqaq/varlet/commit/0b1d95fc740a225240ee3f28e06015f4538b2304))
+* **cli:** expose lib folder ([2a8848a](https://github.com/haoziqaq/varlet/commit/2a8848a6f064aa91d56875ba467c46da79589a79))
+* **cli/compile:** add commonjs bundle ([4a424d4](https://github.com/haoziqaq/varlet/commit/4a424d4c066f7de69cbf561a5bc9279862739637))
+* **ui:** dayjs compatible ([3f2289b](https://github.com/haoziqaq/varlet/commit/3f2289bdf39e82529df94fea6fec9dd7739a5c96))
+* **ui/list:** support nuxt ([dd7a71e](https://github.com/haoziqaq/varlet/commit/dd7a71ee37e2eadbacc6febd22949ef664997cb3))
+* **ui/popup,input:** support nuxt ([def81ef](https://github.com/haoziqaq/varlet/commit/def81ef821a8ce679287702316bd98ca363bc7f4))
+* **ui/sticky:** support nuxt ([29c24d6](https://github.com/haoziqaq/varlet/commit/29c24d61a0e91ceb948ff5a3e1bc6eb4c52b416a))
+* compatible nuxt ([d681176](https://github.com/haoziqaq/varlet/commit/d6811763867f44731544c8c218e5368896aab6b1))
+
+
+
+
+
+## [1.23.4](https://github.com/haoziqaq/varlet/compare/v1.23.3...v1.23.4) (2021-11-21)
+
+
+### Bug Fixes
+
+* **ui/types:** add list.d.ts ([ab06a8f](https://github.com/haoziqaq/varlet/commit/ab06a8f219fcf5f4f929938f048a142a6c4b1715))
+
+
+
+
+
+## [1.23.3](https://github.com/haoziqaq/varlet/compare/v1.23.2...v1.23.3) (2021-11-20)
+
+
+### Bug Fixes
+
+* **cli/jest:** add watchAll mode ([84ebb4e](https://github.com/haoziqaq/varlet/commit/84ebb4efe823cb9d7f22995d429b82d8fc3e05c8))
+
+
+
+
+
+## [1.23.2](https://github.com/haoziqaq/varlet/compare/v1.23.0...v1.23.2) (2021-11-20)
+
+
+### Bug Fixes
+
+* **ui/space:** modify the behavior of space in space-around and space-between modes ([5abf617](https://github.com/haoziqaq/varlet/commit/5abf617b009fbb63409724a3394b207949cc3a2c))
+
+
+
+
+
 # [1.23.0](https://github.com/haoziqaq/varlet/compare/v1.22.10...v1.23.0) (2021-11-19)
 
 

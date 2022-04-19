@@ -82,35 +82,35 @@ test('test slider labelVisible prop', async () => {
   })
 
   const el = wrapper.find('.var-slider__thumb-label')
-  expect(el.classes()).not.toContain('var-slider__thumb-label-active')
+  expect(el.classes()).not.toContain('var-slider__thumb-label--active')
 
   await trigger(el, 'touchstart', 0, 0)
   await trigger(el, 'touchmove', 0, 0)
 
-  expect(el.classes()).toContain('var-slider__thumb-label-active')
+  expect(el.classes()).toContain('var-slider__thumb-label--active')
 
   await trigger(el, 'touchend', 0, 0)
 
-  expect(el.classes()).not.toContain('var-slider__thumb-label-active')
+  expect(el.classes()).not.toContain('var-slider__thumb-label--active')
 
   await wrapper.setData({ visible: 'never' })
 
-  expect(el.classes()).not.toContain('var-slider__thumb-label-active')
+  expect(el.classes()).not.toContain('var-slider__thumb-label--active')
 
   await trigger(el, 'touchstart', 0, 0)
   await trigger(el, 'touchmove', 0, 0)
-  expect(el.classes()).not.toContain('var-slider__thumb-label-active')
+  expect(el.classes()).not.toContain('var-slider__thumb-label--active')
 
   await wrapper.setData({ visible: 'always' })
 
-  expect(el.classes()).toContain('var-slider__thumb-label-active')
+  expect(el.classes()).toContain('var-slider__thumb-label--active')
 
   await trigger(el, 'touchstart', 0, 0)
   await trigger(el, 'touchmove', 0, 0)
-  expect(el.classes()).toContain('var-slider__thumb-label-active')
+  expect(el.classes()).toContain('var-slider__thumb-label--active')
 
   await trigger(el, 'touchend', 0, 0)
-  expect(el.classes()).toContain('var-slider__thumb-label-active')
+  expect(el.classes()).toContain('var-slider__thumb-label--active')
 })
 
 test('test step prop', async () => {
@@ -247,7 +247,7 @@ test('test slider events', async () => {
   })
 
   const el = wrapper.find('.var-slider__thumb')
-  const blockEl = wrapper.find('.var-slider-block')
+  const blockEl = wrapper.find('.var-slider__block')
 
   await trigger(el, 'touchstart', 0, 0)
 

@@ -1,4 +1,5 @@
-const supportTouch = 'ontouchstart' in window
+const inBrowser = typeof window !== 'undefined'
+const supportTouch = inBrowser && 'ontouchstart' in window
 let initiated = false
 let eventTarget
 
@@ -49,8 +50,7 @@ function getActiveTouches(mouseEvent) {
 
 function triggerTouch(touchType, mouseEvent) {
   const { altKey, ctrlKey, metaKey, shiftKey } = mouseEvent
-  const touchEvent = document.createEvent('Event')
-  touchEvent.initEvent(touchType, true, true)
+  const touchEvent = new Event(touchType, { bubbles: true, cancelable: true })
 
   touchEvent.altKey = altKey
   touchEvent.ctrlKey = ctrlKey
@@ -84,4 +84,8 @@ function createTouchEmulator() {
   window.addEventListener('mouseup', (event) => onMouse(event, 'touchend'), true)
 }
 
-if (!supportTouch) createTouchEmulator()
+if (inBrowser && !supportTouch) {
+  createTouchEmulator()
+}
+
+export default {}

@@ -5,6 +5,8 @@ export interface LoadingProps {
   radius?: string | number
   size?: 'normal' | 'mini' | 'small' | 'large'
   color?: string
+  description?: string
+  show?: boolean
 }
 
 export class Loading extends VarComponent {

@@ -1,30 +1,42 @@
 <template>
-  <div class="var--box var-loading">
-    <div class="var-loading__circle" v-if="type === 'circle'">
-      <span
-        class="var-loading__circle-block"
-        :style="{
-          width: getRadius * 2 + 'px',
-          height: getRadius * 2 + 'px',
-          color,
-        }"
-      >
-        <svg viewBox="25 25 50 50">
-          <circle cx="50" cy="50" r="20" fill="none"></circle>
-        </svg>
-      </span>
+  <div :class="n()">
+    <div :class="classes(n('content'), [loading, n('content--active')])" v-if="$slots.default">
+      <slot />
     </div>
-
-    <template v-for="(nums, key) in loadingTypeDict" :key="key">
-      <div :class="`var-loading__${key} var-loading__${key}-${size}`" v-if="type === key">
-        <div
-          v-for="num in nums"
-          :key="num + key"
-          :style="{ backgroundColor: color }"
-          :class="`var-loading__${key}-item var-loading__${key}-item-${size}`"
-        ></div>
+    <div :class="classes('var--box', n('body'), [$slots.default, n('inside')])" v-if="isShow">
+      <div :class="n('circle')" v-if="type === 'circle'">
+        <span
+          :class="n('circle-block')"
+          :style="{
+            width: getRadius * 2 + 'px',
+            height: getRadius * 2 + 'px',
+            color,
+          }"
+        >
+          <svg viewBox="25 25 50 50">
+            <circle cx="50" cy="50" r="20" fill="none"></circle>
+          </svg>
+        </span>
       </div>
-    </template>
+
+      <template v-for="(nums, key) in loadingTypeDict" :key="key">
+        <div :class="classes(n(key), n(`${key}--${size}`))" v-if="type === key">
+          <div
+            v-for="num in nums"
+            :key="num + key"
+            :style="{ backgroundColor: color }"
+            :class="classes(n(`${key}-item`), n(`${key}-item--${size}`))"
+          ></div>
+        </div>
+      </template>
+      <div
+        :class="classes(n('description'), n(`description--${size}`))"
+        :style="{ color }"
+        v-if="$slots.description || description"
+      >
+        <slot name="description">{{ description }}</slot>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,11 +45,14 @@ import { computed, defineComponent } from 'vue'
 import { props } from './props'
 import { toNumber } from '../utils/shared'
 import type { ComputedRef } from 'vue'
+import { createNamespace, call } from '../utils/components'
+
+const { n, classes } = createNamespace('loading')
 
 export default defineComponent({
   name: 'VarLoading',
   props,
-  setup(props) {
+  setup(props, { slots }) {
     const loadingTypeDict = {
       wave: 5,
       cube: 4,
@@ -56,9 +71,18 @@ export default defineComponent({
       return props.radius ? toNumber(props.radius) : sizeDict[props.size]
     })
 
+    const isShow: ComputedRef<boolean> = computed(() => {
+      if (!call(slots.default)) return true
+
+      return props.loading
+    })
+
     return {
+      n,
+      classes,
       loadingTypeDict,
       getRadius,
+      isShow,
     }
   },
 })

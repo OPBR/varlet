@@ -23,7 +23,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const date = ref('11:20')
-    
+
     return {
       date
     }
@@ -84,7 +84,7 @@ export default {
         return second % 2 !== 0
       },
     }
-    
+
     return {
       date,
       allowedTime
@@ -129,7 +129,7 @@ export default {
 
 ### Props
 
-| prop | Description | Type | Default |
+| Prop | Description | Type | Default |
 | ----- | -------------- | -------- | ---------- |
 | `v-model` | Selected time（ISO 8601 format, `HH:mm` or `HH:mm:ss`）| _string_ | `-` |
 | `format` | Picker type, optional values `ampm, 24hr` | _string_ | `ampm` |
@@ -144,7 +144,7 @@ export default {
 
 ### TimePicker AllowedTime
 
-| prop | Description | Type | Default |
+| Prop | Description | Type | Default |
 | ----- | -------------- | -------- | ---------- |
 | `hours` | Limit the optional `hour` | _Function: hour => boolean_ | `-` |
 | `minutes` | Limit the optional `minute` | _Function: minute => boolean_ | `-` |

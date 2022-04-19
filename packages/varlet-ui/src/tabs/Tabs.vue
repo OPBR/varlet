@@ -1,29 +1,34 @@
 <template>
   <component :is="sticky ? 'var-sticky' : Transition" :offset-top="sticky ? offsetTop : null">
     <div
-      class="var-tabs var--box"
-      :class="[
-        `var-tabs--item-${itemDirection}`,
-        `var-tabs--layout-${layoutDirection}-padding`,
-        elevation ? `var-elevation--4` : null,
-        fixedBottom ? 'var-tabs--fixed-bottom' : null,
-      ]"
+      :class="
+        classes(
+          n(),
+          'var--box',
+          n(`--item-${itemDirection}`),
+          n(`--layout-${layoutDirection}-padding`),
+          [elevation, 'var-elevation--4'],
+          [fixedBottom, n('--fixed-bottom')],
+          [safeArea, n('--safe-area')]
+        )
+      "
       :style="{ background: color }"
       v-bind="$attrs"
     >
       <div
-        class="var-tabs__tab-wrap"
         ref="scrollerEl"
-        :class="[
-          scrollable ? `var-tabs--layout-${layoutDirection}-scrollable` : null,
-          `var-tabs--layout-${layoutDirection}`,
-        ]"
+        :class="
+          classes(
+            n('tab-wrap'),
+            [scrollable, n(`--layout-${layoutDirection}-scrollable`)],
+            n(`--layout-${layoutDirection}`)
+          )
+        "
       >
         <slot />
 
         <div
-          class="var-tabs__indicator"
-          :class="[`var-tabs--layout-${layoutDirection}-indicator`]"
+          :class="classes(n('indicator'), n(`--layout-${layoutDirection}-indicator`))"
           :style="{
             width: layoutDirection === 'horizontal' ? indicatorWidth : toSizeUnit(indicatorSize),
             height: layoutDirection === 'horizontal' ? toSizeUnit(indicatorSize) : indicatorHeight,
@@ -38,14 +43,17 @@
 
 <script lang="ts">
 import VarSticky from '../sticky'
-import { defineComponent, watch, ref, computed, Transition, nextTick, onMounted, onUnmounted } from 'vue'
+import { defineComponent, watch, ref, computed, Transition, onMounted, onUnmounted } from 'vue'
 import { props } from './props'
 import { useTabList } from './provide'
 import { isNumber, linear } from '../utils/shared'
-import { toSizeUnit, scrollTo } from '../utils/elements'
+import { toSizeUnit, scrollTo, doubleRaf } from '../utils/elements'
 import type { Ref, ComputedRef } from 'vue'
 import type { TabsProvider } from './provide'
 import type { TabProvider } from '../tab/provide'
+import { createNamespace, call } from '../utils/components'
+
+const { n, classes } = createNamespace('tabs')
 
 export default defineComponent({
   name: 'VarTabs',
@@ -70,17 +78,17 @@ export default defineComponent({
       const currentActive = tab.name.value ?? tab.index.value
       const { active, onChange, onClick } = props
 
-      props['onUpdate:active']?.(currentActive)
-      onClick?.(currentActive)
-      currentActive !== active && onChange?.(currentActive)
+      call(props['onUpdate:active'], currentActive)
+      call(onClick, currentActive)
+      currentActive !== active && call(onChange, currentActive)
     }
 
     const matchName = (): TabProvider | undefined => {
       return tabList.find(({ name }: TabProvider) => props.active === name.value)
     }
 
-    const matchIndex = (): TabProvider | undefined => {
-      return tabList.find(({ index }: TabProvider) => props.active === index.value)
+    const matchIndex = (activeIndex?: number): TabProvider | undefined => {
+      return tabList.find(({ index }: TabProvider) => (activeIndex ?? props.active) === index.value)
     }
 
     const matchBoundary = (): TabProvider | undefined => {
@@ -90,13 +98,11 @@ export default defineComponent({
 
       const { active } = props
 
-      isNumber(active)
-        ? active > length.value - 1
-          ? props['onUpdate:active']?.(length.value - 1)
-          : props['onUpdate:active']?.(0)
-        : null
-
-      return matchIndex()
+      if (isNumber(active)) {
+        const activeIndex = active > length.value - 1 ? length.value - 1 : 0
+        call(props['onUpdate:active'], activeIndex)
+        return matchIndex(activeIndex)
+      }
     }
 
     const watchScrollable = () => {
@@ -164,7 +170,10 @@ export default defineComponent({
 
     watch(
       () => length.value,
-      () => nextTick().then(resize)
+      async () => {
+        await doubleRaf()
+        resize()
+      }
     )
 
     watch(() => props.active, resize)
@@ -181,6 +190,8 @@ export default defineComponent({
       scrollerEl,
       Transition,
       toSizeUnit,
+      n,
+      classes,
       resize,
     }
   },

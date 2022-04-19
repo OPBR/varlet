@@ -2,7 +2,7 @@ import DatePicker from '..'
 import VarDatePicker from '../DatePicker'
 import { mount } from '@vue/test-utils'
 import { createApp } from 'vue'
-import { delay, mockConsole } from '../../utils/jest'
+import { delay, mockConsole, triggerDrag } from '../../utils/jest'
 import dayjs from 'dayjs/esm'
 
 const [currentYear, currentMonth] = dayjs().format('YYYY-MM').split('-')
@@ -10,6 +10,63 @@ const [currentYear, currentMonth] = dayjs().format('YYYY-MM').split('-')
 test('test datePicker plugin', () => {
   const app = createApp({}).use(DatePicker)
   expect(app.component(DatePicker.name)).toBeTruthy()
+})
+
+describe('test datePicker style and type', () => {
+  test('test datePicker style and date', async () => {
+    const template = `
+    <var-date-picker
+      v-model="date"
+      shadow
+      header-color="purple"
+      color="#7bb872"
+      :show-current="false"
+    />
+  `
+    const wrapper = mount({
+      components: {
+        [VarDatePicker.name]: VarDatePicker,
+      },
+      data() {
+        return {
+          date: '2021-04-08',
+        }
+      },
+      template,
+    })
+
+    await delay(0)
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  test('test datePicker style and month', async () => {
+    const template = `
+    <var-date-picker
+      v-model="date"
+      type="month"
+      shadow
+      header-color="purple"
+      color="#7bb872"
+      :show-current="false"
+    />
+  `
+    const wrapper = mount({
+      components: {
+        [VarDatePicker.name]: VarDatePicker,
+      },
+      data() {
+        return {
+          date: '2021-04',
+        }
+      },
+      template,
+    })
+
+    await delay(0)
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
 
 test('test datePicker style and type', async () => {
@@ -93,7 +150,7 @@ test('test max and min', async () => {
   await wrapper.find('.var-picker-header__value').trigger('click')
   await delay(200)
 
-  expect(wrapper.find('.var-year-picker__panel').findAll('li').length).toBe(1)
+  expect(wrapper.find('.var-year-picker').findAll('li').length).toBe(1)
 })
 
 test('test datePicker v-model', async () => {
@@ -120,7 +177,7 @@ test('test datePicker v-model', async () => {
 
   await wrapper.find('.var-picker-header__value').trigger('click')
   await delay(200)
-  await wrapper.find('.var-year-picker__panel').find('li').trigger('click')
+  await wrapper.find('.var-year-picker').find('li').trigger('click')
   await delay(200)
   await wrapper.find('.var-month-picker__content').find('ul').find('button').trigger('click')
   expect(wrapper.vm.date).not.toBe('2021-01')
@@ -234,6 +291,30 @@ test('test datePicker readonly', async () => {
   expect(wrapper.vm.date).toBe('2021-05-19')
 })
 
+test('test datePicker touchable prop', async () => {
+  const wrapper = mount({
+    components: {
+      [VarDatePicker.name]: VarDatePicker,
+    },
+    data() {
+      return {
+        date: '2021-04-08',
+        type: 'date',
+      }
+    },
+    template: `<var-date-picker v-model="date" :type="type" />`,
+  })
+
+  const pickBodyEl = wrapper.find('.var-date-picker__body')
+  const headerEl = wrapper.find('.var-picker-header__value')
+
+  await triggerDrag(pickBodyEl, 0, 100)
+  expect(headerEl.text()).toBe('2021 四月')
+  await triggerDrag(pickBodyEl, 100, 0)
+  await delay(300)
+  expect(headerEl.text()).toBe('2021 三月')
+})
+
 test('test value legal', async () => {
   const fn = jest.fn()
   const { mockRestore } = mockConsole('error', fn)
@@ -255,7 +336,7 @@ test('test value legal', async () => {
   await delay(0)
   await wrapper.setData({ multiple: false, date: [] })
   await delay(0)
-  await wrapper.setData({ multiple: false, date: undefined })
+  await wrapper.setData({ multiple: false, date: 'Invalid Date' })
   expect(fn).toHaveBeenCalledTimes(3)
 
   mockRestore()

@@ -29,15 +29,14 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import config from '@config'
-import AppMobile from './components/AppMobile'
-import AppHeader from './components/AppHeader'
-import AppSidebar from './components/AppSidebar'
+import AppMobile from './components/AppMobile.vue'
+import AppHeader from './components/AppHeader.vue'
+import AppSidebar from './components/AppSidebar.vue'
 import { defineComponent, nextTick, onMounted, ref, Ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { get } from 'lodash-es'
-import { getPCLocationInfo, isPhone, MenuTypes, setThemes } from '../utils'
+import { getPCLocationInfo, isPhone, MenuTypes } from '../utils'
 
 export interface Menu {
   doc: string
@@ -52,7 +51,6 @@ export default defineComponent({
     AppSidebar
   },
   setup() {
-    // config
     const defaultLanguage = get(config, 'defaultLanguage')
     const menu: Ref<Menu[]> = ref(get(config, 'pc.menu', []))
     const useMobile = ref(get(config, 'useMobile'))
@@ -79,7 +77,7 @@ export default defineComponent({
 
       nextTick(() => {
         const children = document
-          .querySelector('.varlet-site-sidebar')
+          .querySelector('.varlet-site-sidebar')!
           .getElementsByClassName('var-site-cell')
         const index = menu.value.findIndex((item) => item.doc === menuName)
 
@@ -93,7 +91,7 @@ export default defineComponent({
     }
 
     const handleSidebarChange = (menu: Menu) => {
-      doc.value.scrollTop = 0
+      doc.value!.scrollTop = 0
       componentName.value = getComponentNameByMenuName(menu.doc)
       menuName.value = menu.doc
     }
@@ -131,9 +129,49 @@ export default defineComponent({
 
 <style>
 .hljs {
-  background: #202020 !important;
+  background: var(--site-config-color-hl-background) !important;
   padding: 0 !important;
-  border-radius: 4px;
+  transition: all .25s
+}
+
+.hljs code {
+  line-height: 31px;
+}
+
+.hljs-comment, .hljs-meta, .hljs-quote {
+  color: var(--site-config-color-hl-group-a)
+}
+
+.hljs-keyword, .hljs-name, .hljs-selector-tag, .hljs-tag {
+  color: var(--site-config-color-hl-group-b)
+}
+
+.hljs-attribute, .hljs-selector-id {
+  color: var(--site-config-color-hl-group-c)
+}
+
+.hljs-addition, .hljs-selector-attr, .hljs-selector-pseudo, .hljs-string {
+  color: var(--site-config-color-hl-group-d)
+}
+
+.hljs-subst {
+  color: var(--site-config-color-hl-group-e)
+}
+
+.hljs-link, .hljs-regexp {
+  color: var(--site-config-color-hl-group-f)
+}
+
+.hljs-doctag, .hljs-section, .hljs-title, .hljs-type {
+  color: var(--site-config-color-hl-group-g)
+}
+
+.hljs-bullet, .hljs-literal, .hljs-symbol, .hljs-template-variable, .hljs-variable {
+  color: var(--site-config-color-hl-group-h)
+}
+
+.hljs-deletion, .hljs-number {
+  color: var(--site-config-color-hl-group-i)
 }
 </style>
 
@@ -141,14 +179,8 @@ export default defineComponent({
 @doc-active: {
   display: inline;
   font-family: inherit;
-  padding: 0 4px;
+  padding: 0;
   white-space: pre-wrap;
-}
-
-::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  background: transparent;
 }
 
 body {
@@ -176,7 +208,7 @@ iframe {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 4px 20px;
+    margin: 20px 0;
     padding: 90px 40px;
     border-top: 6px solid var(--site-config-color-introduce-border);
     border-radius: 2px;
@@ -269,38 +301,42 @@ iframe {
       }
 
       h3 {
-        margin-bottom: 16px;
         font-size: 18px;
+        margin: 0;
+      }
+
+      h4 {
+        margin: 18px 0 0;
       }
 
       p,
-      ul {
+      ul,
+      ol {
         -webkit-font-smoothing: antialiased;
         color: var(--site-config-color-text);
         font-size: 15px;
         line-height: 26px;
-        padding: 16px;
         border-radius: 4px;
         background: var(--site-config-color-bar);
-        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         list-style: none;
+        margin: 14px 0 0;
+        padding: 0;
       }
 
       pre {
-        margin: 20px 0 0;
+        margin: 0;
       }
 
       code {
         position: relative;
         display: block;
-        padding: 16px;
+        padding: 10px 16px;
         overflow-x: auto;
         font-size: 13px;
         font-family: Consolas, Monaco, monospace;
-        line-height: 26px;
         white-space: pre-wrap;
         word-wrap: break-word;
-        color: #fff;
+        color: var(--site-config-color-hl-code);
       }
 
       p code,
@@ -323,7 +359,6 @@ iframe {
         line-height: 28px;
         border-collapse: collapse;
         border-radius: 4px;
-        box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
         th {
           padding: 8px 16px;
@@ -332,11 +367,12 @@ iframe {
           color: var(--site-config-color-sub-text);
           font-size: 13px;
           -webkit-font-smoothing: antialiased;
+          border-bottom: 1px solid var(--site-config-color-border);
         }
 
         td {
           padding: 8px 16px;
-          border-top: 1px solid var(--site-config-color-border);
+          border-bottom: 1px solid var(--site-config-color-border);
           color: var(--site-config-color-text);
           font-family: Consolas, Monaco, monospace;
 
@@ -357,7 +393,11 @@ iframe {
       }
 
       .card {
-        margin-bottom: 24px;
+        border-radius: 4px;
+        background: var(--site-config-color-bar);
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
       }
     }
   }

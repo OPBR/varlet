@@ -46,6 +46,14 @@ module.exports = {
       },
       {
         text: {
+          'zh-CN': '服务端渲染',
+          'en-US': 'Server side rendering',
+        },
+        doc: 'serverSideRendering',
+        type: 3,
+      },
+      {
+        text: {
           'zh-CN': '浏览器适配',
           'en-US': 'Browser Adaptation',
         },
@@ -307,6 +315,14 @@ module.exports = {
       },
       {
         text: {
+          'zh-CN': 'BottomNavigation 底部导航栏',
+          'en-US': 'BottomNavigation',
+        },
+        doc: 'bottom-navigation',
+        type: 2,
+      },
+      {
+        text: {
           'zh-CN': '功能指令',
           'en-US': 'Functional Directives',
         },
@@ -497,7 +513,7 @@ module.exports = {
       {
         text: {
           'zh-CN': 'Slider 滑块',
-          'en-US': 'slider',
+          'en-US': 'Slider',
         },
         doc: 'slider',
         type: 2,
@@ -521,7 +537,7 @@ module.exports = {
     ],
   },
   highlight: {
-    style: './highlight.css',
+    style: null,
   },
   moduleCompatible: {
     "import dayjs from 'dayjs/esm'\n": "import dayjs from 'dayjs'\n",

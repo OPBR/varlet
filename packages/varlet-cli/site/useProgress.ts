@@ -1,17 +1,19 @@
 import Progress from './components/progress'
 import { reactive } from 'vue'
-// @ts-ignore
 import config from '@config'
-// @ts-ignore
 import { getBrowserThemes, mountInstance, watchThemes } from './utils'
 import { get } from 'lodash-es'
 
 function getColor(themes?: 'themes' | 'darkThemes') {
-  return get(config, `${themes ?? getBrowserThemes()}.color-progress`)
+  const themesKey = get(config, 'themesKey')
+
+  return get(config, `${themes ?? getBrowserThemes(themesKey)}.color-progress`)
 }
 
 function getTrackColor(themes?: 'themes' | 'darkThemes') {
-  return get(config, `${themes ?? getBrowserThemes()}.color-progress-track`)
+  const themesKey = get(config, 'themesKey')
+
+  return get(config, `${themes ?? getBrowserThemes(themesKey)}.color-progress-track`)
 }
 
 export function useProgress() {

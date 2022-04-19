@@ -1,5 +1,5 @@
 <template>
-  <div class="var-countdown">
+  <div :class="n()">
     <slot v-bind="timeData">
       {{ showTime }}
     </slot>
@@ -12,7 +12,10 @@ import { props } from './props'
 import { requestAnimationFrame, cancelAnimationFrame } from '../utils/elements'
 import { toNumber, parseFormat } from '../utils/shared'
 import type { Ref } from 'vue'
-import type { Time } from '../utils/shared'
+import type { TimeData } from './props'
+import { call, createNamespace } from '../utils/components'
+
+const { n } = createNamespace('countdown')
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
@@ -28,7 +31,13 @@ export default defineComponent({
     const showTime: Ref<string> = ref('')
     const handle: Ref<number> = ref(0)
     const pauseTime: Ref<number> = ref(0)
-    const timeData: Ref<Partial<Record<keyof Time, number>>> = ref({})
+    const timeData: Ref<TimeData> = ref({
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    })
 
     const formatTime = (durationTime: number) => {
       const days = Math.floor(durationTime / DAY)
@@ -37,7 +46,7 @@ export default defineComponent({
       const seconds = Math.floor((durationTime % MINUTE) / SECOND)
       const milliseconds = Math.floor(durationTime % SECOND)
 
-      const time = {
+      const time: TimeData = {
         days,
         hours,
         minutes,
@@ -46,7 +55,7 @@ export default defineComponent({
       }
       timeData.value = time
 
-      props.onChange?.(timeData.value)
+      call(props.onChange, timeData.value)
       showTime.value = parseFormat(props.format, time)
     }
 
@@ -63,7 +72,7 @@ export default defineComponent({
       formatTime(durationTime)
 
       if (durationTime === 0) {
-        onEnd?.()
+        call(onEnd)
         return
       }
 
@@ -101,6 +110,7 @@ export default defineComponent({
     return {
       showTime,
       timeData,
+      n,
       start,
       pause,
       reset,

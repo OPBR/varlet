@@ -1,5 +1,9 @@
 # Loading
 
+### Intro
+
+Loading component for performing animations when data is loaded
+
 ### Install
 
 ```js
@@ -38,6 +42,31 @@ createApp().use(Loading)
 <var-loading type="disappear" size="small" />
 ```
 
+### Wrap
+
+```html
+<var-button @click="loading = !loading" style="margin-bottom: 8px">
+  {{ loading ? 'Open' : 'Close' }}
+</var-button>
+<var-loading description="loading...." type="circle" :loading="loading">
+  <var-card title="Intro" description="Varlet is a Material design mobile component library developed based on Vue3, developed and maintained by partners in the community." />
+</var-loading>
+```
+
+```javascript
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const loading = ref(false)
+
+    return {
+      loading,
+    }
+  }
+}
+```
+
 ## API
 
 ### Props
@@ -47,4 +76,21 @@ createApp().use(Loading)
 | `color`  | Loading color                                           | _string_ | `currentColor` |
 | `type`   | Can be set to `circle` `wave` `cube` `rect` `disappear` | _string_ | `circle`       |
 | `size`   | Can be set to `large` `normal` `small` `mini`           | _string_ | `normal`       |
-| `radius` | Set size when the `type` is `circle`              | _string \| number_  | `-` |
+| `description`   | Description of the loading                       | _string_ | `-`            |
+| `loading`| Specify whether loading is active                       | _boolean_ | `false`      |
+| `radius` | Set size when the `type` is `circle`                    | _string \| number_  | `-` |
+
+### Slots
+
+| Name | Description | SlotProps |
+| --- | --- | --- |
+| `default` | Content wrapped in loading | `-` |
+| `description`    | Description of the loading | `-` |
+
+### Style Variables
+Here are the CSS variables used by the component, Styles can be customized using [StyleProvider](#/en-US/style-provider)
+
+| Variable | Default |
+| --- | --- |
+| `--loading-opacity` | `0.38` |
+| `--loading-desc-margin` | `8px 0 0` |

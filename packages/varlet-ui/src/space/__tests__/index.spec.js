@@ -3,10 +3,53 @@ import Space from '..'
 import { mount } from '@vue/test-utils'
 import { createApp } from 'vue'
 import { delay } from '../../utils/jest'
+import example from '../example'
+
+test('test space example', async () => {
+  const wrapper = mount(example)
+  expect(wrapper.html()).toMatchSnapshot()
+  wrapper.unmount()
+})
 
 test('test space plugin', () => {
   const app = createApp({}).use(Space)
   expect(app.component(Space.name)).toBeTruthy()
+})
+
+test('test space v-for', async () => {
+  const template = `
+    <var-space>
+      <div v-for="i in 3">div{{i}}</div>
+    </var-space>
+  `
+  const wrapper = mount({
+    components: {
+      [VarSpace.name]: VarSpace,
+    },
+    template,
+  })
+
+  await delay(0)
+  expect(wrapper.html()).toMatchSnapshot()
+})
+
+test('test space with Comment', async () => {
+  const template = `
+    <var-space>
+      <!-- comment -->
+      <div>div1</div>
+      <div>div2</div>
+    </var-space>
+  `
+  const wrapper = mount({
+    components: {
+      [VarSpace.name]: VarSpace,
+    },
+    template,
+  })
+
+  await delay(0)
+  expect(wrapper.html()).toMatchSnapshot()
 })
 
 test('test space props', async () => {
@@ -55,9 +98,6 @@ test('test space props', async () => {
   expect(wrapper.html()).toMatchSnapshot()
 
   await wrapper.setProps({ wrap: true })
-  expect(wrapper.html()).toMatchSnapshot()
-
-  await wrapper.setProps({ wrap: false })
   expect(wrapper.html()).toMatchSnapshot()
 
   await wrapper.setProps({ wrap: false })

@@ -1,13 +1,14 @@
 import App from './App.vue'
 import '@varlet/touch-emulator'
-// @ts-ignore
 import routes from '@pc-routes'
-// @ts-ignore
 import config from '@config'
 
 import Icon from '../components/icon'
 import Cell from '../components/cell'
 import Ripple from '../components/ripple'
+import CodeExample from '../components/code-example'
+import Snackbar from '../components/snackbar'
+
 import '../components/styles/common.less'
 import '../components/styles/elevation.less'
 
@@ -19,6 +20,8 @@ import { useProgress } from '../useProgress'
 const defaultLanguage = get(config, 'defaultLanguage')
 const redirect = get(config, 'pc.redirect')
 const mobileRedirect = get(config, 'mobile.redirect')
+
+Snackbar.allowMultiple(true)
 
 redirect &&
   routes.push({
@@ -35,7 +38,7 @@ const router = createRouter({
 let isEnd = true
 const { start, end } = useProgress()
 
-router.beforeEach((to, from) => {
+router.beforeEach((to: any, from: any) => {
   if (to.path === from.path) {
     return false
   }
@@ -85,4 +88,7 @@ createApp(App)
   .use(Ripple)
   // @ts-ignore
   .use(Icon)
+  // @ts-ignore
+  .use(CodeExample)
+  .use(Snackbar)
   .mount('#app')

@@ -11,27 +11,28 @@
 Varlet is a Material design mobile component library developed based on `Vue3`, developed and maintained by partners in the community.
 
 ### Features
-- 1.Provide more than 40 high quality general purpose components
-- 2.Components are very lightweight
-- 3.Developed by Chinese, complete Chinese and English documentation and logistics support
-- 4.Support on-demand introduction
-- 5.Support theme customization
-- 6.Support internationalization
-- 7.Support WebStorm, VS Code component syntax highlighting
-- 8.Support the SSR
-- 9.Support the Typescript
-- 10.More than 90 percent unit test coverage, providing stability assurance
-- 11.Support dark mode
+
+- 🚀 Provide 50 high quality general purpose components
+- 🚀 Components are very lightweight
+- 💪 Developed by Chinese, complete Chinese and English documentation and logistics support
+- 🛠️ Support on-demand introduction
+- 🛠️ Support theme customization
+- 🌍 Support internationalization
+- 💡 Support WebStorm, VS Code component syntax highlighting
+- 💪 Support the SSR
+- 💡 Support the Typescript
+- 💪 Make sure more than 90 percent unit test coverage, providing stability assurance
+- 🛠️ Support dark mode
 
 ### PR & Issue
-If you have any problems during use, you can [issue](https://github.com/haoziqaq/varlet/issues) them to us on [github](https://github.com/haoziqaq/varlet),
-we will deal with it as soon as possible. You can also give us [PR](https://github.com/haoziqaq/varlet/pulls).
+If you have any problems during use, you can [issue](https://github.com/varletjs/varlet/issues) them to us on [github](https://github.com/varletjs/varlet),
+we will deal with it as soon as possible. You can also give us [PR](https://github.com/varletjs/varlet/pulls).
 
 ### Open source licenses
 Component library based on `MIT` licenses.
 
 ### Material Design Introduction
-Material Design，Is a new design language from Google that aims to provide a more consistent and broader 
+Material Design, Is a new design language from Google that aims to provide a more consistent and broader 
 "look and feel" for phones, tablets, desktops and "other platforms".
 
 ### Why Material

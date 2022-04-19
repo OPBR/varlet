@@ -67,7 +67,7 @@ export default {
 ### Modify Style
 
 ```html
- <var-tabs
+<var-tabs
   elevation
   color="#2979ff"
   active-color="#fff"
@@ -238,10 +238,10 @@ Click the Tab to scroll automatically to the center of the viewport.
 
 ### Props
 
-### Tabs Props
+#### Tabs Props
 
-| Prop | Description | Type | Default | 
-| --- | --- | --- | --- | 
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
 | `v-model:active` | The `active` tab identifier matches `name` first, followed by `index` | _string_ | `index` |
 | `layout-direction` | The layout direction of the tabs, optional value of `horizontal` `vertical` | _string_ | `horizontal` |
 | `item-direction` | The layout direction of the tab, optional value of `horizontal` `vertical` | _string_ | `horizontal` |
@@ -254,27 +254,28 @@ Click the Tab to scroll automatically to the center of the viewport.
 | `indicator-size` | Tab activates the size of the indicator | _string \| number_ | `2px` |
 | `elevation` | Whether to enable shadows | _boolean_ | `false` |
 | `sticky` | Whether to enable sticky layouts | _boolean_ | `false` |
+| `safe-area` | Whether to enable bottom safe area adaptation | _boolean_ | `false` |
 | `offset-top` | Distance offset top | _string \| number_ | `0` |
 
-### Tab Props
+#### Tab Props
 
-| Prop | Description | Type | Default | 
-| --- | --- | --- | --- | 
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
 | `name` | tab's name | _string \| number_ | `index` |
 | `disabled` | Whether to disable tab | _boolean_ | `false` |
 
-### TabsItems Props
+#### TabsItems Props
 
-| Prop | Description | Type | Default | 
-| --- | --- | --- | --- | 
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
 | `v-model:active` | The identity of the active tab | _string \| number_ | `-` |
 | `can-swipe` | Whether to allow swipe switch | _boolean_ | `true` |
 | `loop` | Whether to allow cycle switching | _boolean_ | `false` |
 
-### TabItem Props
+#### TabItem Props
 
-| Prop | Description | Type | Default | 
-| --- | --- | --- | --- | 
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
 | `name` | view's name | _string \| number_ | `index` |
 
 ### Methods
@@ -285,14 +286,14 @@ Click the Tab to scroll automatically to the center of the viewport.
 
 ### Events
 
-### Tabs Events
+#### Tabs Events
 
 | Event | Description | Arguments |
 | --- | --- | --- |
 | `click` | Triggered when the tab is clicked, but not when the tab `disabled` status is `true` | `active: string \| number` |
 | `change` | Triggered when switching tab | `active: string \| number` |
 
-### Tab Events
+#### Tab Events
 
 | Event | Description | Arguments |
 | --- | --- | --- |
@@ -300,25 +301,25 @@ Click the Tab to scroll automatically to the center of the viewport.
 
 ### Slots
 
-### Tabs Slots
+#### Tabs Slots
 
 | Slot | Description | Arguments |
 | --- | --- | --- |
 | `default` | tabs content | `-` |
 
-### Tab Slots
+#### Tab Slots
 
 | Slot | Description | Arguments |
 | --- | --- | --- |
 | `default` | tab's content | `-` |
 
-### TabsItems Slots
+#### TabsItems Slots
 
 | Slot | Description | Arguments |
 | --- | --- | --- |
 | `default` | TabsItems content | `-` |
 
-### TabItem Slots
+#### TabItem Slots
 
 | Slot | Description | Arguments |
 | --- | --- | --- |
@@ -328,7 +329,7 @@ Click the Tab to scroll automatically to the center of the viewport.
 
 Here are the CSS variables used by the component, Styles can be customized using [StyleProvider](#/en-US/style-provider)
 
-### Tabs Variables
+#### Tabs Variables
 
 | Variable | Default |
 | --- | --- |
@@ -340,7 +341,7 @@ Here are the CSS variables used by the component, Styles can be customized using
 | `--tabs-indicator-background` | `var(--color-primary)` |
 | `--tabs-background` | `#fff` |
 
-### Tab Variables
+#### Tab Variables
 
 | Variable | Default |
 | --- | --- |

@@ -91,8 +91,9 @@
     position: absolute;
     top: 50%;
     left: 0;
+    width: 100%;
     transform-origin: left;
-    transition-property: top, transform;
+    transition-property: top, transform, width;
     transition-duration: 0.3s;
     transform: translate(0, calc(-50% + var(--select-placeholder-size) / 2)) scale(1);
     font-size: var(--select-placeholder-size);
@@ -110,7 +111,7 @@
     border: none;
     font-size: inherit;
     color: var(--select-select-text-color);
-    overflow-x: auto;
+    word-break: break-all;
   }
 
   &__arrow[var-select-cover] {
@@ -135,6 +136,7 @@
 
   &--placeholder-hint {
     top: 0;
+    width: 133.33%;
     transform: translate(0, 0) scale(0.75);
   }
 

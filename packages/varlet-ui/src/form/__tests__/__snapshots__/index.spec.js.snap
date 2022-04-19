@@ -112,7 +112,7 @@ exports[`test form with input 1`] = `
     <div class=\\"var-input__controller var-input--disabled\\">
       <div class=\\"var-input__icon\\"></div>
       <div class=\\"var-input__wrap\\">
-        <!--v-if--><input class=\\"var-input__input var-input--disabled\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var-input__placeholder\\" for=\\"var-input-3\\"></label>
+        <!--v-if--><input class=\\"var-input__input var-input--disabled\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var--ellipsis var-input__placeholder\\" for=\\"var-input-3\\"></label>
       </div>
       <div class=\\"var-input__icon\\">
         <!--v-if-->
@@ -134,7 +134,7 @@ exports[`test form with input 2`] = `
     <div class=\\"var-input__controller\\">
       <div class=\\"var-input__icon\\"></div>
       <div class=\\"var-input__wrap\\">
-        <!--v-if--><input class=\\"var-input__input\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var-input__placeholder\\" for=\\"var-input-3\\"></label>
+        <!--v-if--><input class=\\"var-input__input\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var--ellipsis var-input__placeholder\\" for=\\"var-input-3\\"></label>
       </div>
       <div class=\\"var-input__icon\\">
         <!--v-if-->
@@ -156,7 +156,7 @@ exports[`test form with input 3`] = `
     <div class=\\"var-input__controller var-input--error\\">
       <div class=\\"var-input__icon\\"></div>
       <div class=\\"var-input__wrap\\">
-        <!--v-if--><input class=\\"var-input__input var-input--caret-error\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var-input__placeholder\\" for=\\"var-input-3\\"></label>
+        <!--v-if--><input class=\\"var-input__input var-input--caret-error\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var--ellipsis var-input--error var-input__placeholder\\" for=\\"var-input-3\\"></label>
       </div>
       <div class=\\"var-input__icon\\">
         <!--v-if-->
@@ -181,7 +181,7 @@ exports[`test form with input 4`] = `
     <div class=\\"var-input__controller\\">
       <div class=\\"var-input__icon\\"></div>
       <div class=\\"var-input__wrap\\">
-        <!--v-if--><input class=\\"var-input__input\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var-input__placeholder\\" for=\\"var-input-3\\"></label>
+        <!--v-if--><input class=\\"var-input__input\\" autocomplete=\\"new-password\\" id=\\"var-input-3\\" disabled=\\"\\" type=\\"text\\"><label class=\\"var--ellipsis var-input__placeholder\\" for=\\"var-input-3\\"></label>
       </div>
       <div class=\\"var-input__icon\\">
         <!--v-if-->
@@ -320,10 +320,10 @@ exports[`test form with select 1`] = `
           <div class=\\"var-select__select var-select--disabled\\" style=\\"text-align: left;\\">
             <div>
               <div class=\\"var-select__chips\\">
-                <transition-stub><span class=\\"var-chip var--box var-chip--small var--inline-flex var-chip--default var-chip--round var-select__chip\\" var-select-cover=\\"\\"><span class=\\"var-chip--text-small\\">选项1</span><span class=\\"var-chip--close\\"><i class=\\"var-icon var-icon--set var-icon-close-circle\\" style=\\"transition: transform 0ms;\\"></i></span></span></transition-stub>
+                <transition-stub><span class=\\"var-chip var--box var-chip--small var--inline-flex var-chip--default var-chip--round var-select__chip\\" var-select-cover=\\"\\"><span class=\\"var-chip__text-small\\">选项1</span><span class=\\"var-chip--close\\"><i class=\\"var-icon var-icon--set var-icon-close-circle\\" style=\\"transition: transform 0ms;\\"></i></span></span></transition-stub>
               </div>
             </div><i class=\\"var-icon var-icon--set var-icon-menu-down var-select__arrow\\" style=\\"transition: transform 300ms;\\" var-select-cover=\\"\\"></i>
-          </div><label class=\\"var-select__placeholder var-select--disabled var-select--placeholder-hint\\"></label>
+          </div><label class=\\"var-select__placeholder var--ellipsis var-select--disabled var-select--placeholder-hint\\"></label>
         </div>
         <!--teleport start-->
         <!--teleport end-->
@@ -350,10 +350,10 @@ exports[`test form with select 2`] = `
           <div class=\\"var-select__select\\" style=\\"text-align: left;\\">
             <div>
               <div class=\\"var-select__chips\\">
-                <transition-stub><span class=\\"var-chip var--box var-chip--small var--inline-flex var-chip--default var-chip--round var-select__chip\\" var-select-cover=\\"\\"><span class=\\"var-chip--text-small\\">选项1</span><span class=\\"var-chip--close\\"><i class=\\"var-icon var-icon--set var-icon-close-circle\\" style=\\"transition: transform 0ms;\\"></i></span></span></transition-stub>
+                <transition-stub><span class=\\"var-chip var--box var-chip--small var--inline-flex var-chip--default var-chip--round var-select__chip\\" var-select-cover=\\"\\"><span class=\\"var-chip__text-small\\">选项1</span><span class=\\"var-chip--close\\"><i class=\\"var-icon var-icon--set var-icon-close-circle\\" style=\\"transition: transform 0ms;\\"></i></span></span></transition-stub>
               </div>
             </div><i class=\\"var-icon var-icon--set var-icon-menu-down var-select__arrow\\" style=\\"transition: transform 300ms;\\" var-select-cover=\\"\\"></i>
-          </div><label class=\\"var-select__placeholder var-select--placeholder-hint\\"></label>
+          </div><label class=\\"var-select__placeholder var--ellipsis var-select--placeholder-hint\\"></label>
         </div>
         <!--teleport start-->
         <!--teleport end-->
@@ -380,10 +380,10 @@ exports[`test form with select 3`] = `
           <div class=\\"var-select__select var-select--error\\" style=\\"text-align: left;\\">
             <div>
               <div class=\\"var-select__chips\\">
-                <transition-stub><span class=\\"var-chip var--box var-chip--small var--inline-flex var-chip--danger var-chip--round var-select__chip\\" var-select-cover=\\"\\"><span class=\\"var-chip--text-small\\">选项1</span><span class=\\"var-chip--close\\"><i class=\\"var-icon var-icon--set var-icon-close-circle\\" style=\\"transition: transform 0ms;\\"></i></span></span></transition-stub>
+                <transition-stub><span class=\\"var-chip var--box var-chip--small var--inline-flex var-chip--danger var-chip--round var-select__chip\\" var-select-cover=\\"\\"><span class=\\"var-chip__text-small\\">选项1</span><span class=\\"var-chip--close\\"><i class=\\"var-icon var-icon--set var-icon-close-circle\\" style=\\"transition: transform 0ms;\\"></i></span></span></transition-stub>
               </div>
             </div><i class=\\"var-icon var-icon--set var-icon-menu-down var-select__arrow\\" style=\\"transition: transform 300ms;\\" var-select-cover=\\"\\"></i>
-          </div><label class=\\"var-select__placeholder var-select--placeholder-hint\\"></label>
+          </div><label class=\\"var-select__placeholder var--ellipsis var-select--error var-select--placeholder-hint\\"></label>
         </div>
         <!--teleport start-->
         <!--teleport end-->
@@ -414,7 +414,7 @@ exports[`test form with select 4`] = `
             <div>
               <div class=\\"var-select__chips\\"></div>
             </div><i class=\\"var-icon var-icon--set var-icon-menu-down var-select__arrow\\" style=\\"transition: transform 300ms;\\" var-select-cover=\\"\\"></i>
-          </div><label class=\\"var-select__placeholder\\"></label>
+          </div><label class=\\"var-select__placeholder var--ellipsis\\"></label>
         </div>
         <!--teleport start-->
         <!--teleport end-->
@@ -434,7 +434,7 @@ exports[`test form with select 4`] = `
 exports[`test form with slider 1`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-slider\\">
-    <div class=\\"var-slider-block var-slider__disable\\">
+    <div class=\\"var-slider__block var-slider--disabled\\">
       <div class=\\"var-slider__track\\">
         <div class=\\"var-slider__track-background\\"></div>
         <div class=\\"var-slider__track-fill\\" style=\\"width: 5%; left: 0%;\\"></div>
@@ -455,7 +455,7 @@ exports[`test form with slider 1`] = `
 exports[`test form with slider 2`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-slider\\">
-    <div class=\\"var-slider-block var-slider__error\\">
+    <div class=\\"var-slider__block var-slider--error\\">
       <div class=\\"var-slider__track\\">
         <div class=\\"var-slider__track-background\\"></div>
         <div class=\\"var-slider__track-fill\\" style=\\"width: 5%; left: 0%;\\"></div>
@@ -479,7 +479,7 @@ exports[`test form with slider 2`] = `
 exports[`test form with slider 3`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-slider\\">
-    <div class=\\"var-slider-block\\">
+    <div class=\\"var-slider__block\\">
       <div class=\\"var-slider__track\\">
         <div class=\\"var-slider__track-background\\"></div>
         <div class=\\"var-slider__track-fill\\" style=\\"width: 0%; left: 0%;\\"></div>
@@ -500,7 +500,7 @@ exports[`test form with slider 3`] = `
 exports[`test form with switch 1`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-switch\\">
-    <div class=\\"var-switch-block var-switch__disable\\" style=\\"height: 24px; width: 40px;\\">
+    <div class=\\"var-switch__block var-switch--disable\\" style=\\"height: 24px; width: 40px;\\">
       <div style=\\"height: 14.399999999999999px; width: 38px; border-radius: 13.333333333333334px; filter: brightness(.6);\\" class=\\"var-switch__track\\"></div>
       <div class=\\"var-switch__ripple\\" style=\\"left: -10px; color: rgb(153, 153, 153); width: 40px; height: 40px;\\">
         <div style=\\"width: 20px; height: 20px;\\" class=\\"var-switch__handle var-elevation--2\\">
@@ -518,7 +518,7 @@ exports[`test form with switch 1`] = `
 exports[`test form with switch 2`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-switch\\">
-    <div class=\\"var-switch-block\\" style=\\"height: 24px; width: 40px;\\">
+    <div class=\\"var-switch__block\\" style=\\"height: 24px; width: 40px;\\">
       <div style=\\"height: 14.399999999999999px; width: 38px; border-radius: 13.333333333333334px; filter: opacity(.6);\\" class=\\"var-switch__track var-switch__track-error\\"></div>
       <div class=\\"var-switch__ripple\\" style=\\"left: -10px; color: rgb(153, 153, 153); width: 40px; height: 40px;\\">
         <div style=\\"width: 20px; height: 20px;\\" class=\\"var-switch__handle var-elevation--2 var-switch__handle-error\\">
@@ -539,7 +539,7 @@ exports[`test form with switch 2`] = `
 exports[`test form with switch 3`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-switch\\">
-    <div class=\\"var-switch-block\\" style=\\"height: 24px; width: 40px;\\">
+    <div class=\\"var-switch__block\\" style=\\"height: 24px; width: 40px;\\">
       <div style=\\"height: 14.399999999999999px; width: 38px; border-radius: 13.333333333333334px; filter: brightness(.6);\\" class=\\"var-switch__track\\"></div>
       <div class=\\"var-switch__ripple\\" style=\\"left: -10px; color: rgb(153, 153, 153); width: 40px; height: 40px;\\">
         <div style=\\"width: 20px; height: 20px;\\" class=\\"var-switch__handle var-elevation--2\\">
@@ -558,7 +558,7 @@ exports[`test form with uploader 1`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-uploader var--box\\">
     <div class=\\"var-uploader__file-list\\">
-      <div class=\\"var--relative var-uploader__action var-elevation--2 var-uploader--disabled\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
+      <div class=\\"var-uploader__action var-elevation--2 var-uploader--disabled\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
     </div>
     <transition-stub>
       <!--v-if-->
@@ -579,7 +579,7 @@ exports[`test form with uploader 2`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-uploader var--box\\">
     <div class=\\"var-uploader__file-list\\">
-      <div class=\\"var--relative var-uploader__action var-elevation--2\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
+      <div class=\\"var-uploader__action var-elevation--2\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
     </div>
     <transition-stub>
       <!--v-if-->
@@ -600,7 +600,7 @@ exports[`test form with uploader 3`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-uploader var--box\\">
     <div class=\\"var-uploader__file-list\\">
-      <div class=\\"var--relative var-uploader__action var-elevation--2\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
+      <div class=\\"var-uploader__action var-elevation--2\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
     </div>
     <transition-stub>
       <div class=\\"var-form-details\\">
@@ -624,7 +624,7 @@ exports[`test form with uploader 4`] = `
 "<div class=\\"var-form\\">
   <div class=\\"var-uploader var--box\\">
     <div class=\\"var-uploader__file-list\\">
-      <div class=\\"var--relative var-uploader__action var-elevation--2\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
+      <div class=\\"var-uploader__action var-elevation--2\\"><input class=\\"var-uploader__action-input\\" type=\\"file\\" accept=\\"image/*\\" disabled=\\"\\"><i class=\\"var-icon var-icon--set var-icon-plus var-uploader__action-icon\\" style=\\"transition: transform 0ms;\\" var-uploader-cover=\\"\\"></i></div>
     </div>
     <transition-stub>
       <!--v-if-->

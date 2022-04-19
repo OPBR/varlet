@@ -1,6 +1,6 @@
 <template>
   <var-popup
-    class="var-image-preview__popup"
+    :class="n('popup')"
     var-image-preview-cover
     transition="var-fade"
     :show="popupShow"
@@ -15,7 +15,7 @@
     @route-change="onRouteChange"
   >
     <var-swipe
-      class="var-image-preview__swipe"
+      :class="n('swipe')"
       var-image-preview-cover
       :touchable="canSwipe"
       :indicator="indicator && images.length > 1"
@@ -25,14 +25,9 @@
       v-bind="$attrs"
     >
       <template #default>
-        <var-swipe-item
-          class="var-image-preview__swipe-item"
-          var-image-preview-cover
-          v-for="image in images"
-          :key="image"
-        >
+        <var-swipe-item :class="n('swipe-item')" var-image-preview-cover v-for="image in images" :key="image">
           <div
-            class="var-image-preview__zoom-container"
+            :class="n('zoom-container')"
             :style="{
               transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
               transitionTimingFunction,
@@ -42,29 +37,25 @@
             @touchmove="handleTouchmove"
             @touchend="handleTouchend"
           >
-            <img class="var-image-preview__image" :src="image" :alt="image" />
+            <img :class="n('image')" :src="image" :alt="image" />
           </div>
         </var-swipe-item>
       </template>
 
       <template #indicator="{ index, length }">
         <slot name="indicator" :index="index" :length="length">
-          <div class="var-image-preview__indicators" v-if="indicator && images.length > 1">
-            {{ index + 1 }} / {{ length }}
-          </div>
+          <div :class="n('indicators')" v-if="indicator && images.length > 1">{{ index + 1 }} / {{ length }}</div>
         </slot>
       </template>
     </var-swipe>
 
     <slot name="close-icon">
-      <var-icon
-        class="var-image-preview__close-icon"
-        name="close-circle"
-        var-image-preview-cover
-        v-if="closeable"
-        @click="close"
-      />
+      <var-icon :class="n('close-icon')" name="close-circle" var-image-preview-cover v-if="closeable" @click="close" />
     </slot>
+
+    <div :class="n('extra')">
+      <slot name="extra" />
+    </div>
   </var-popup>
 </template>
 
@@ -77,6 +68,9 @@ import { defineComponent, ref, computed, watch } from 'vue'
 import { props } from './props'
 import { toNumber } from '../utils/shared'
 import type { Ref, ComputedRef } from 'vue'
+import { call, createNamespace } from '../utils/components'
+
+const { n, classes } = createNamespace('image-preview')
 
 type VarTouch = {
   clientX: number
@@ -87,6 +81,7 @@ type VarTouch = {
 
 const DISTANCE_OFFSET = 12
 const EVENT_DELAY = 200
+const TAP_DELAY = 350
 const ANIMATION_DURATION = 200
 
 export default defineComponent({
@@ -164,12 +159,13 @@ export default defineComponent({
     }
 
     const isTapTouch = (target: HTMLElement) => {
-      if (!startTouch || !prevTouch) {
+      if (!target || !startTouch || !prevTouch) {
         return false
       }
 
       return (
         getDistance(startTouch, prevTouch) <= DISTANCE_OFFSET &&
+        Date.now() - prevTouch.timestamp < TAP_DELAY &&
         (target === startTouch.target || target.parentNode === startTouch.target)
       )
     }
@@ -264,11 +260,10 @@ export default defineComponent({
     const close = () => {
       if (scale.value > 1) {
         zoomOut()
-        setTimeout(() => props['onUpdate:show']?.(false), ANIMATION_DURATION)
+        setTimeout(() => call(props['onUpdate:show'], false), ANIMATION_DURATION)
         return
       }
-
-      props['onUpdate:show']?.(false)
+      call(props['onUpdate:show'], false)
     }
 
     watch(
@@ -280,6 +275,8 @@ export default defineComponent({
     )
 
     return {
+      n,
+      classes,
       initialIndex,
       popupShow,
       scale,

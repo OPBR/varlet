@@ -24,15 +24,14 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import config from '@config'
 import { MenuTypes } from '../../utils'
-import { reactive, ref } from 'vue'
+import { reactive, ref, defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import type { Menu } from '../App'
+import type { Menu } from '../App.vue'
 import { get } from 'lodash-es'
 
-export default {
+export default defineComponent({
   name: 'AppSidebar',
   props: {
     menu: {
@@ -50,7 +49,7 @@ export default {
     const menuTypes = reactive(MenuTypes)
     const themes = ref(get(config, 'themes'))
 
-    const changeRoute = (item) => {
+    const changeRoute = (item: Menu) => {
       if (item.type === MenuTypes.TITLE || props.menuName === item.doc) {
         return
       }
@@ -64,7 +63,7 @@ export default {
       changeRoute
     }
   }
-}
+})
 </script>
 
 <style scoped lang="less">
@@ -75,7 +74,7 @@ export default {
   top: 60px;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 99;
   overflow-y: scroll;
   box-shadow: 0 8px 12px var(--site-config-color-shadow);
   background: var(--site-config-color-bar);

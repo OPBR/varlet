@@ -1,5 +1,9 @@
 # 纸片
 
+### 介绍
+
+纸片组件，用于显示一些条目，并且支持关闭条目
+
 ### 引入
 
 ```js
@@ -11,7 +15,7 @@ createApp().use(Chip)
 
 ### 纸片类型
 
-通过`type`属性设置纸片的类型。
+通过 `type` 属性设置纸片的类型。
 
 ```html
 <var-chip>默认纸片</var-chip>
@@ -24,7 +28,7 @@ createApp().use(Chip)
 
 ### 简单纸片
 
-通过`plain`属性将纸片设置为简单纸片。
+通过 `plain` 属性将纸片设置为简单纸片。
 
 ```html
 <var-chip plain type="primary">简单纸片</var-chip>
@@ -32,7 +36,7 @@ createApp().use(Chip)
 
 ### 非圆角纸片
 
-通过把`round`属性设置为`false`来取消纸片的圆角样式。
+通过把 `round` 属性设置为 `false` 来取消纸片的圆角样式。
 
 ```html
 <var-chip :round="false" type="primary">非圆角纸片</var-chip>
@@ -40,7 +44,7 @@ createApp().use(Chip)
 
 ### 纸片尺寸
 
-通过`size`属性设置纸片的尺寸。
+通过 `size` 属性设置纸片的尺寸。
 
 ```html
 <var-chip type="primary">常规纸片</var-chip>
@@ -51,7 +55,7 @@ createApp().use(Chip)
 
 ### 块级纸片
 
-通过`block`属性将纸片设置为块级纸片。
+通过 `block` 属性将纸片设置为块级纸片。
 
 ```html
 <var-chip type="primary" block>块级纸片</var-chip>
@@ -59,7 +63,7 @@ createApp().use(Chip)
 
 ### 可关闭纸片
 
-通过`closable`属性将纸片设置为可关闭纸片，使用`close-name`属性设置纸片的关闭图标样式（必须在`closeable`为`true`的条件下才能使用）。
+通过 `closable` 属性将纸片设置为可关闭纸片，使用 `close-name` 属性设置纸片的关闭图标样式（必须在 `closeable` 为 `true` 的条件下才能使用）。
 
 ```html
 <var-chip closable v-if="show" @close="show = false">可关闭纸片</var-chip>
@@ -80,9 +84,9 @@ export default {
     const show = ref(true)
     const show1= ref(true)
 
-    return { 
-      show, 
-      show1 
+    return {
+      show,
+      show1
     }
   }
 }
@@ -90,7 +94,7 @@ export default {
 
 ### 自定义颜色
 
-通过`color`和`text-color`属性设置纸片颜色。
+通过 `color` 和 `text-color` 属性设置纸片颜色。
 
 ```html
 <var-chip color="#009688">纸片</var-chip>
@@ -133,14 +137,14 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | ---- | ---- | ---- | ---- |
 | `type` | 类型，可选值为 `default` `primary` `info` `success` `warning` `danger` | _string_ | `default` |
-| `size` | 尺寸， 可选值为 `normal` `mini` `small` `large` | _string_ | `normal` |
+| `size` | 尺寸，可选值为 `normal` `mini` `small` `large` | _string_ | `normal` |
 | `plain` | 是否为空心样式 | _boolean_ | `false` |
 | `round` | 是否为圆角样式 | _boolean_ | `true` |
 | `block` | 是否为块级样式 | _boolean_ | `false` |
 | `closeable` | 是否为可关闭纸片 | _boolean_ | `false` |
-| `close-name` | 自定义可关闭纸片的图标，必须在`closeable`为`true`的条件下才能用 | _string_ | `-` |
+| `close-name` | 自定义可关闭纸片的图标，必须在 `closeable` 为 `true` 的条件下才能用 | _string_ | `-` |
 | `color` | 纸片颜色 | _string_ | `_` |
-| `text-color` | 文本颜色，优先级高于`color`属性 | _string_ | `-` |
+| `text-color` | 文本颜色，优先级高于 `color` 属性 | _string_ | `-` |
 
 ### 插槽
 
@@ -157,7 +161,7 @@ export default {
 | `close` | 点击关闭按钮时触发，只有在显示关闭按钮的时候才能使用 | `event: Event`  |
 
 ### 样式变量
-以下为组件使用的css变量,可以使用[StyleProvider组件](#/zh-CN/style-provider)进行样式定制
+以下为组件使用的 css 变量，可以使用 [StyleProvider 组件](#/zh-CN/style-provider) 进行样式定制
 
 | 变量名 | 默认值 |
 | --- | --- |
@@ -181,7 +185,3 @@ export default {
 | `--chip-text-normal-margin` | `0 5px` |
 | `--chip-text-small-margin` | `0 3px` |
 | `--chip-text-mini-margin` | `0 2px` |
-
-
-
-

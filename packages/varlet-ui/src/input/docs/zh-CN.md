@@ -11,7 +11,7 @@ createApp().use(Input)
 
 ### 基本使用
 
-输入框的行为和基本原生一致，用户输入时始终获得一个符合`type`规则的字符串
+输入框的行为和基本原生一致，用户输入时始终获得一个符合 `type` 规则的字符串
 
 ```js
 import { ref } from 'vue'
@@ -34,9 +34,9 @@ export default {
 如果只需要组件的基本功能，可以通过属性去除部分样式。
 
 ```html
-<var-input 
-  :hint="false" 
-  :line="false" 
+<var-input
+  :hint="false"
+  :line="false"
   placeholder="请输入文本"
   v-model="value"
 />
@@ -93,7 +93,7 @@ createApp().use(Icon)
 
 ### 字段校验
 
-通过传入一个校验器数组可以对值进行校验，校验器返回`true`则为校验通过。
+通过传入一个校验器数组可以对值进行校验，校验器返回 `true` 则为校验通过。
 以外的值将转换为文本作为用户提示。
 
 ```html
@@ -108,14 +108,14 @@ createApp().use(Icon)
 
 ### 属性
 
-| 参数 | 说明 | 类型 | 默认值 | 
-| --- | --- | --- | --- | 
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
 | `v-model` | 绑定的值 | _string_ | `-` |
 | `placeholder` | 占位符 | _string_ | `-` |
 | `type` | 输入框类型, 可选值为 `text` `password` `number` | _string_ | `text` |
 | `maxlength` | 最大长度 | _string \| number_ | `-` |
-| `textarea` | 是否是文本域 | _boolean_ | `false` |  
-| `rows` | 文本域的显示行数 | _string \| number_ | `8` |  
+| `textarea` | 是否是文本域 | _boolean_ | `false` |
+| `rows` | 文本域的显示行数 | _string \| number_ | `8` |
 | `line` | 是否显示分割线 | _boolean_ | `true` |
 | `hint` | 是否使用占位符作为提示 | _boolean_ | `true` |
 | `text-color` | 文字颜色 | _string_ | `-` |
@@ -125,8 +125,8 @@ createApp().use(Icon)
 | `disabled` | 是否禁用 | _boolean_ | `false` |
 | `clearable` | 是否可清除 | _boolean_ | `false` |
 | `resize` | 文本域是否可以拖动调整尺寸 | _boolean_ | `false` |
-| `validate-trigger` | 触发验证的时机， 可选值为 `onFocus` `onBlur` `onChange` `onClick` `onClear` `onInput` | _ValidateTriggers[]_ | `['onInput', 'onClear']` |
-| `rules` | 验证规则，返回`true`表示验证通过，其余的值则转换为文本作为用户提示 | _Array<(v: string) => any>_ | `-` |
+| `validate-trigger` | 触发验证的时机，可选值为 `onFocus` `onBlur` `onChange` `onClick` `onClear` `onInput` | _ValidateTriggers[]_ | `['onInput', 'onClear']` |
+| `rules` | 验证规则，返回 `true` 表示验证通过，其余的值则转换为文本作为用户提示 | _Array<(v: string) => any>_ | `-` |
 
 ### 方法
 
@@ -157,7 +157,7 @@ createApp().use(Icon)
 | `append-icon` | 后置图标 | `-` |
 
 ### 样式变量
-以下为组件使用的css变量,可以使用[StyleProvider组件](#/zh-CN/style-provider)进行样式定制
+以下为组件使用的 css 变量，可以使用 [StyleProvider 组件](#/zh-CN/style-provider) 进行样式定制
 
 | 变量名 | 默认值 |
 | --- | --- |

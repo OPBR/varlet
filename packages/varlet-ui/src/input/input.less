@@ -68,8 +68,9 @@
     position: absolute;
     top: 50%;
     left: 0;
+    width: 100%;
     transform-origin: left;
-    transition-property: top, transform;
+    transition-property: top, transform, width;
     transition-duration: 0.3s;
     transform: translate(0, calc(-50% + var(--input-placeholder-size) / 2)) scale(1);
     font-size: var(--input-placeholder-size);
@@ -80,8 +81,10 @@
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
     transform-origin: left;
-    transition: transform 0.3s;
+    transition-property: transform, width;
+    transition-duration: 0.3s;
     transform: translate(0, calc(var(--input-textarea-padding-top) + var(--input-placeholder-size))) scale(1);
     font-size: var(--input-placeholder-size);
     color: var(--input-blur-color);
@@ -135,6 +138,7 @@
 
   &--placeholder-hint {
     top: 0;
+    width: 133.33%;
     transform: translate(0, 0) scale(0.75);
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@varlet/cli",
-  "version": "1.23.7",
+  "version": "1.27.5",
   "description": "cli of varlet",
   "bin": {
     "varlet-cli": "./lib/index.js"
@@ -22,10 +22,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/haoziqaq/varlet.git"
+    "url": "https://github.com/varletjs/varlet.git"
   },
   "bugs": {
-    "url": "https://github.com/haoziqaq/varlet/issues"
+    "url": "https://github.com/varletjs/varlet/issues"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -34,52 +34,40 @@
   "gitHead": "ee9c3866bedad96c86365b0f9888a3a6bb781b1f",
   "dependencies": {
     "@babel/core": "^7.14.8",
+    "@babel/helper-plugin-utils": "^7.14.5",
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-typescript": "^7.14.5",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@release-it/conventional-changelog": "^3.3.0",
-    "@varlet/eslint-config": "^1.13.0",
-    "@varlet/icons": "^1.23.0",
-    "@varlet/markdown-vite-plugin": "^1.22.0",
-    "@varlet/stylelint-config": "^1.9.0",
-    "@varlet/touch-emulator": "^1.0.1",
-    "@vitejs/plugin-vue": "1.9.2",
-    "@vitejs/plugin-vue-jsx": "1.1.8",
-    "@vue/babel-plugin-jsx": "^1.0.7",
-    "@vue/compiler-sfc": "3.2.22",
-    "@vue/test-utils": "^2.0.0-rc.6",
+    "@varlet/icons": "workspace:*",
+    "@varlet/markdown-vite-plugin": "workspace:*",
+    "@varlet/touch-emulator": "workspace:*",
+    "@vitejs/plugin-vue": "2.2.0",
+    "@vitejs/plugin-vue-jsx": "1.3.5",
+    "@vue/babel-plugin-jsx": "1.1.1",
+    "@vue/compiler-sfc": "3.2.25",
+    "@vue/runtime-core": "3.2.25",
     "babel-jest": "26.6.3",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.2",
-    "clipboard": "^2.0.6",
     "commander": "^8.3.0",
-    "commitizen": "^4.2.2",
-    "conventional-changelog-cli": "^2.1.1",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.30.0",
+    "conventional-changelog": "^3.1.25",
     "execa": "^5.0.0",
     "fs-extra": "^9.0.1",
+    "glob": "^7.2.0",
     "hash-sum": "^2.0.0",
-    "husky": "^7.0.1",
     "inquirer": "^8.1.2",
     "jest": "^26.6.3",
     "less": "^3.12.2",
-    "lint-staged": "^10.5.0",
-    "live-server": "^1.2.1",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "ora": "^5.4.0",
-    "prettier": "^2.3.2",
-    "release-it": "^14.11.5",
+    "semver": "^7.3.5",
     "slash": "^3.0.0",
-    "stylelint": "^13.13.1",
     "ts-jest": "^26.5.1",
     "typescript": "^4.4.4",
-    "vite": "2.6.5",
+    "vite": "2.8.1",
     "vite-plugin-html": "^2.1.0",
-    "vue-jest": "^5.0.0-alpha.8",
-    "vue-router": "4.0.12"
+    "vue": "3.2.25",
+    "vue-jest": "^5.0.0-alpha.8"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.12",
@@ -87,9 +75,17 @@
     "@types/hash-sum": "^1.0.0",
     "@types/jest": "^26.0.15",
     "@types/lodash": "^4.14.174",
-    "@types/lodash-es": "^4.17.5"
+    "@types/lodash-es": "^4.17.5",
+    "@types/semver": "^7.3.9"
   },
   "peerDependencies": {
-    "vue": "3.2.16"
+    "@varlet/touch-emulator": "workspace:*",
+    "@vue/test-utils": "^2.0.0-rc.6",
+    "clipboard": "^2.0.6",
+    "live-server": "^1.2.1",
+    "lodash-es": "^4.17.21",
+    "vue": "3.2.25",
+    "@vue/runtime-core": "3.2.16",
+    "vue-router": "4.0.12"
   }
 }

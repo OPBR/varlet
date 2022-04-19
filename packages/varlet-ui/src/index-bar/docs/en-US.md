@@ -24,11 +24,11 @@ When you click the index bar, it will automatically jump to the corresponding `I
   @change="change"
 >
   <div v-for="item in list" :key="item">
-    <var-index-anchor 
-      :index="item" 
+    <var-index-anchor
+      :index="item"
       class="var-index-anchor__example"
-    > 
-      Title {{ item }} 
+    >
+      Title {{ item }}
     </var-index-anchor>
     <var-cell>{{ item }} Text</var-cell>
     <var-cell>{{ item }} Text</var-cell>
@@ -39,35 +39,35 @@ When you click the index bar, it will automatically jump to the corresponding `I
 ```javascript
 import { ref, onMounted } from 'vue'
 
-  export default {
-    setup() {
-      const list = ref([])
+export default {
+  setup() {
+    const list = ref([])
 
-      onMounted(() => {
-        for (let i = 0; i < 26; i++) {
-          list.value.push(String.fromCharCode(65 + i))
-        }
-      })
-
-      const change = (value) => {
-        console.log(value)
+    onMounted(() => {
+      for (let i = 0; i < 26; i++) {
+        list.value.push(String.fromCharCode(65 + i))
       }
+    })
 
-      return {
-        list,
-        change
-      }
+    const change = (value) => {
+      console.log(value)
+    }
+
+    return {
+      list,
+      change
     }
   }
+}
 ```
 
 ## API
 
 ### Props
 
-### IndexBar Props
+#### IndexBar Props
 
-| prop | Description | Type | Default |
+| Prop | Description | Type | Default |
 | ----- | -------------- | -------- | ---------- |
 | `sticky` | Whether to enable anchor sticky top | _boolean_ | `true` |
 | `sticky-offset-top` | Anchor offset top when sticky | _number_ | `0` |
@@ -77,15 +77,15 @@ import { ref, onMounted } from 'vue'
 | `highlight-color` | Index character highlight color | _string_ | `#ee0a24` |
 | `duration` | Animation duration | _string \| number_ | `0` |
 
-### IndexAnchor Props
+#### IndexAnchor Props
 
-| prop | Description | Type | Default |
+| Prop | Description | Type | Default |
 | ----- | -------------- | -------- | ---------- |
 | `index` | Index | _string \| number_ | `-` |
 
 ### Events
 
-### IndexBar Events
+#### IndexBar Events
 
 | Event | Description | arguments |
 | ----- | -------------- | -------- |
@@ -94,7 +94,7 @@ import { ref, onMounted } from 'vue'
 
 ### Slots
 
-### IndexAnchor Slots
+#### IndexAnchor Slots
 
 | Name | Description | SlotProps |
 | --- | --- | --- |
@@ -103,7 +103,7 @@ import { ref, onMounted } from 'vue'
 ### Methods
 Use ref to get IndexBar instance and call instance methods.
 
-| Name | Description	 | arguments |
+| Method | Description	 | arguments |
 | ---- | ------- | -------- |
 | `scrollTo` | scroll to target element	 | `index: number \| string` |
 

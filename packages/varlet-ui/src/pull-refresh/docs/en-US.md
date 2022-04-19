@@ -57,20 +57,36 @@ export default {
 }
 ```
 
+### Attention
+
+When the height of the `PullRefresh` is `0`, it will be unavailable, so you need to ensure that the height of its child elements is **not** `0` or set height for the `PullRefresh`:
+
+```html
+<var-pull-refresh>
+  <div style="height: 200px"></div>
+</var-pull-refresh>
+
+// or
+
+<var-pull-refresh style="height: 200px">
+  <div></div>
+</var-pull-refresh>
+```
+
 ## API
 
 ### Props
 
-| prop | Description | Type | Default |
+| Prop | Description | Type | Default |
 | ----- | -------------- | -------- | ---------- |
 | `v-model` | Loading status | _boolean_ | `-` |
 | `disabled` | Whether to disable pull refresh | _boolean_ | `false` |
 | `animation-duration` | The duration of the animation to return to the initial position after loading(ms) | _string \| number_ | `300` |
 | `success-duration` | Success text display duration(ms) | _string \| number_ | `2000` |
-| `bgColor` | BackgroundColor of control | _string_ | `#005CAF` |
+| `bg-color` | BackgroundColor of control | _string_ | `#005CAF` |
 | `color` | color of control | _string_ | `#ffffff` |
-| `successBgColor` | BackgroundColor of control when the status is success | _string_ | `#4CAF50` |
-| `successColor` | color of control when the status is success | _string_ | `ffffff` |
+| `success-bg-color` | BackgroundColor of control when the status is success | _string_ | `#4CAF50` |
+| `success-color` | color of control when the status is success | _string_ | `ffffff` |
 
 ### Events
 

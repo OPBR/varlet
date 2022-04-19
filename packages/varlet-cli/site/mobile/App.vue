@@ -1,32 +1,21 @@
 <template>
   <div style="position: relative">
     <header>
-      <var-site-app-bar
-        class="app-bar"
-        title-position="left"
-        :title="bigCamelizeComponentName"
-      >
+      <var-site-app-bar class="app-bar" title-position="left" :title="bigCamelizeComponentName">
         <template #left>
-          <var-site-button
-            v-if="showBackIcon"
-            text
-            round
-            @click="back"
-            color="transparent"
-            text-color="#fff"
-          >
-            <var-site-icon name="chevron-left" :size="28" style="margin-top: 1px;" />
+          <var-site-button v-if="showBackIcon" text round @click="back" color="transparent" text-color="#fff">
+            <var-site-icon name="chevron-left" :size="28" style="margin-top: 1px" />
           </var-site-button>
           <var-site-button
             v-if="!showBackIcon && github"
-            style="margin-left: 2px;"
+            style="margin-left: 2px"
             text
             round
             @click="toGithub"
             color="transparent"
             text-color="#fff"
           >
-            <var-site-icon name="github" :size="28" style="margin-top: 1px;" />
+            <var-site-icon name="github" :size="28" style="margin-top: 1px" />
           </var-site-button>
         </template>
         <template #right>
@@ -36,7 +25,7 @@
             color="transparent"
             text-color="#fff"
             :style="{
-              transform: languages ? 'translateX(2px)' : 'translateX(-4px)'
+              transform: languages ? 'translateX(2px)' : 'translateX(-4px)',
             }"
             v-if="darkMode"
             @click="toggleTheme"
@@ -66,10 +55,7 @@
     </div>
 
     <transition name="site-menu">
-      <div
-        class="settings var-site-elevation--3"
-        v-if="showMenu"
-      >
+      <div class="settings var-site-elevation--3" v-if="showMenu">
         <var-site-cell
           v-for="(value, key) in nonEmptyLanguages"
           :key="key"
@@ -86,7 +72,6 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import config from '@config'
 import { computed, ComputedRef, defineComponent, ref, Ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -98,12 +83,12 @@ import {
   removeEmpty,
   setThemes,
   watchLang,
-  watchThemes
+  watchThemes,
 } from '../utils'
 import { get } from 'lodash-es'
 
 export default defineComponent({
-  setup: function() {
+  setup: function () {
     const bigCamelizeComponentName: Ref<string> = ref('')
     const route = useRoute()
     const showBackIcon: Ref<boolean> = ref(false)
@@ -112,17 +97,18 @@ export default defineComponent({
     const languages: Ref<Record<string, string>> = ref(get(config, 'mobile.header.i18n'))
     const nonEmptyLanguages: ComputedRef<Record<string, string>> = computed(() => removeEmpty(languages.value))
     const redirect = get(config, 'mobile.redirect', '')
+    const themesKey = get(config, 'themesKey')
     const github: Ref<string> = ref(get(config, 'mobile.header.github'))
     const darkMode: Ref<string> = ref(get(config, 'mobile.header.darkMode'))
-    const currentThemes = ref(getBrowserThemes())
+    const currentThemes = ref(getBrowserThemes(themesKey))
 
-    const changeLanguage = (lang) => {
+    const changeLanguage = (lang: string) => {
       language.value = lang
       showMenu.value = false
       window.location.href = `./mobile.html#${route.path}?language=${language.value}&replace=${route.query.replace}`
 
       if (!isPhone() && inIframe()) {
-        (window.top as any).scrollToMenu(redirect.slice(1))
+        ;(window.top as any).scrollToMenu(redirect.slice(1))
       }
     }
 
@@ -130,13 +116,13 @@ export default defineComponent({
       window.location.href = `./mobile.html#${redirect}?language=${language.value}&replace=${redirect.slice(1)}`
 
       if (!isPhone() && inIframe()) {
-        (window.top as any).scrollToMenu(redirect.slice(1))
+        ;(window.top as any).scrollToMenu(redirect.slice(1))
       }
     }
 
     const toGithub = () => {
       if (inIframe() && !isPhone()) {
-        window.top.open(github.value)
+        window.top!.open(github.value)
       } else {
         window.location.href = github.value
       }
@@ -161,7 +147,7 @@ export default defineComponent({
     const setCurrentThemes = (themes: 'themes' | 'darkThemes') => {
       currentThemes.value = themes
       setThemes(config, currentThemes.value)
-      window.localStorage.setItem('currentThemes', currentThemes.value)
+      window.localStorage.setItem(themesKey, currentThemes.value)
     }
 
     const toggleTheme = () => {
@@ -173,7 +159,7 @@ export default defineComponent({
       }
     }
 
-    (window as any).toggleTheme = toggleTheme
+    ;(window as any).toggleTheme = toggleTheme
 
     setThemes(config, currentThemes.value)
     window.postMessage(getThemesMessage(), '*')
@@ -199,9 +185,9 @@ export default defineComponent({
       toGithub,
       back,
       changeLanguage,
-      toggleTheme
+      toggleTheme,
     }
-  }
+  },
 })
 </script>
 
@@ -218,7 +204,7 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background: var(--site-config-color-bar);
   color: var(--site-config-color-text);
-  transition: background-color .25s, color .25s;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 ::-webkit-scrollbar {

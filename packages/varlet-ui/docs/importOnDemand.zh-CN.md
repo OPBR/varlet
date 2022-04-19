@@ -5,7 +5,7 @@
 
 ### 手动引入
 
-每一个组件都是一个`Vue插件`，并由`组件逻辑`和`样式文件`组成，如下方式进行手动引入使用。
+每一个组件都是一个 `Vue插件`，并由 `组件逻辑` 和 `样式文件` 组成，如下方式进行手动引入使用。
 
 ```js
 import { createApp } from 'vue'
@@ -17,14 +17,19 @@ createApp().use(Button)
 
 ### 自动引入
 
-所有声明在模板中的组件，都会被[unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)插件自动扫描，插件会自动引入`组件逻辑`和`样式文件`并`注册组件`。
+所有声明在模板中的组件，都会被 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) 插件自动扫描，插件会自动引入`组件逻辑`和`样式文件`并`注册组件`。
 
 ```shell
 # 安装插件
+
 # npm
-npm i unplugin-vue-components -D 
+npm i unplugin-vue-components -D
+
 # yarn
 yarn add unplugin-vue-components -D
+
+# pnpm
+pnpm add unplugin-vue-components -D
 ```
 
 #### Vue Cli
@@ -72,4 +77,4 @@ export default defineConfig({
 </template>
 ```
 
-特别注意: 在模板之外调用的函数组件无法被插件扫描，仍需要手动引入样式。例如`Snackbar`就是一个函数组件。
+特别注意: 在模板之外调用的函数组件无法被插件扫描，仍需要手动引入样式。例如 `Snackbar` 就是一个函数组件。

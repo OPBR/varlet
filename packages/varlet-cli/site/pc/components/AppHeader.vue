@@ -9,6 +9,15 @@
       <a
         class="varlet-site-header__link"
         target="_blank"
+        :href="playground"
+        v-ripple
+        v-if="playground"
+      >
+        <var-site-icon name="code-json" :size="24" />
+      </a>
+      <a
+        class="varlet-site-header__link"
+        target="_blank"
         :href="github"
         v-ripple
         v-if="github"
@@ -61,15 +70,14 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import config from '@config'
-import { ref, computed } from 'vue'
+import { ref, computed, defineComponent } from 'vue'
 import { get } from 'lodash-es'
 import { getBrowserThemes, getPCLocationInfo, removeEmpty, setThemes, watchThemes } from '../../utils'
 import { useRouter } from 'vue-router'
 import type { Ref, ComputedRef } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'AppHeader',
   props: {
     language: {
@@ -77,19 +85,20 @@ export default {
     },
   },
   setup() {
-    // config
     const title: Ref<string> = ref(get(config, 'title'))
     const logo: Ref<string> = ref(get(config, 'logo'))
+    const themesKey = get(config, 'themesKey')
     const languages: Ref<Record<string, string>> = ref(get(config, 'pc.header.i18n'))
-    const github: Ref<Record<string, string>> = ref(get(config, 'pc.header.github'))
-    const darkMode: Ref<Record<string, string>> = ref(get(config, 'pc.header.darkMode'))
-    const currentThemes = ref(getBrowserThemes())
+    const playground: Ref<string> = ref(get(config, 'pc.header.playground'))
+    const github: Ref<string> = ref(get(config, 'pc.header.github'))
+    const darkMode: Ref<boolean> = ref(get(config, 'pc.header.darkMode'))
+    const currentThemes = ref(getBrowserThemes(themesKey))
 
     const isOpenMenu: Ref<boolean> = ref(false)
     const router = useRouter()
     const nonEmptyLanguages: ComputedRef<Record<string, string>> = computed(() => removeEmpty(languages.value))
 
-    const handleLanguageChange = (language) => {
+    const handleLanguageChange = (language: string) => {
       const { menuName } = getPCLocationInfo()
       router.replace(`/${language}/${menuName}`)
       isOpenMenu.value = false
@@ -98,7 +107,7 @@ export default {
     const setCurrentThemes = (themes: 'themes' | 'darkThemes') => {
       currentThemes.value = themes
       setThemes(config, currentThemes.value)
-      window.localStorage.setItem('currentThemes', currentThemes.value)
+      window.localStorage.setItem(themesKey, currentThemes.value)
     }
 
     const getThemesMessage = () => ({ action: 'themesChange', from: 'pc', data: currentThemes.value })
@@ -106,7 +115,7 @@ export default {
     const toggleTheme = () => {
       setCurrentThemes(currentThemes.value === 'darkThemes' ? 'themes' : 'darkThemes')
       window.postMessage(getThemesMessage(), '*')
-      ;(document.getElementById('mobile') as HTMLIFrameElement).contentWindow.postMessage(getThemesMessage(), '*')
+      ;(document.getElementById('mobile') as HTMLIFrameElement).contentWindow!.postMessage(getThemesMessage(), '*')
     }
 
     watchThemes((themes, from) => {
@@ -121,6 +130,7 @@ export default {
       title,
       languages,
       nonEmptyLanguages,
+      playground,
       github,
       isOpenMenu,
       darkMode,
@@ -129,7 +139,7 @@ export default {
       toggleTheme,
     }
   },
-}
+})
 </script>
 
 <style scoped lang="less">
@@ -171,7 +181,6 @@ export default {
   left: 0;
   display: flex;
   align-items: center;
-  color: var(--site-config-color-font-size);
   width: 100%;
   height: 60px;
   padding: 0 30px;
@@ -200,6 +209,12 @@ export default {
   &__tail {
     display: flex;
     align-items: center;
+  }
+
+  @media screen and (max-width: 400px) {
+    &__tail {
+      display: none;
+    }
   }
 
   &__language {

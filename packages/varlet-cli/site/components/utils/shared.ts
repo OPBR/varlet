@@ -12,10 +12,12 @@ export const toNumber = (val: number | string | boolean | undefined | null): num
   return val
 }
 
-export function kebabCase(str: string): string {
-  const reg = /([^-])([A-Z])/g
+export const isPlainObject = (val: unknown): val is Record<string, any> =>
+  Object.prototype.toString.call(val) === '[object Object]'
 
-  return str.replace(reg, '$1-$2').replace(reg, '$1-$2').toLowerCase()
+export function kebabCase(str: string): string {
+  const ret = str.replace(/([A-Z])/g, ' $1').trim()
+  return ret.split(' ').join('-').toLowerCase()
 }
 
 export const isString = (val: unknown): val is string => typeof val === 'string'

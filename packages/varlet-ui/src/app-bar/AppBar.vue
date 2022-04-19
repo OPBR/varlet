@@ -1,33 +1,24 @@
 <template>
   <div
-    class="var-app-bar"
-    :class="{ 'var-elevation--3': elevation }"
+    :class="classes(n(), [elevation, 'var-elevation--3'])"
     :style="{
       background: color,
       color: textColor,
     }"
   >
-    <div class="var-app-bar__left">
+    <div :class="n('left')">
       <slot name="left" />
-      <div
-        class="var-app-bar__title"
-        :style="{ paddingLeft: $slots.left ? 0 : undefined }"
-        v-if="titlePosition === 'left'"
-      >
+      <div :class="n('title')" :style="{ paddingLeft }" v-if="titlePosition === 'left'">
         <slot>{{ title }}</slot>
       </div>
     </div>
 
-    <div class="var-app-bar__title" v-if="titlePosition === 'center'">
+    <div :class="n('title')" v-if="titlePosition === 'center'">
       <slot>{{ title }}</slot>
     </div>
 
-    <div class="var-app-bar__right">
-      <div
-        class="var-app-bar__title"
-        :style="{ paddingRight: $slots.right ? 0 : undefined }"
-        v-if="titlePosition === 'right'"
-      >
+    <div :class="n('right')">
+      <div :class="n('title')" :style="{ paddingRight }" v-if="titlePosition === 'right'">
         <slot>{{ title }}</slot>
       </div>
       <slot name="right" />
@@ -36,12 +27,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, Ref, onMounted, onUpdated } from 'vue'
 import { props } from './props'
+import { createNamespace } from '../utils/components'
+
+const { n, classes } = createNamespace('app-bar')
 
 export default defineComponent({
   name: 'VarAppBar',
   props,
+  setup(props, { slots }) {
+    const paddingLeft: Ref<number | undefined> = ref()
+    const paddingRight: Ref<number | undefined> = ref()
+
+    const computePadding = () => {
+      paddingLeft.value = slots.left ? 0 : undefined
+      paddingRight.value = slots.right ? 0 : undefined
+    }
+
+    onMounted(computePadding)
+    onUpdated(computePadding)
+
+    return {
+      n,
+      classes,
+      paddingLeft,
+      paddingRight,
+    }
+  },
 })
 </script>
 

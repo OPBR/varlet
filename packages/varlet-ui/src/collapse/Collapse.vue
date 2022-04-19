@@ -1,5 +1,5 @@
 <template>
-  <div class="var-collapse">
+  <div :class="n()">
     <slot />
   </div>
 </template>
@@ -8,10 +8,14 @@
 import { computed, defineComponent, nextTick, watch } from 'vue'
 import { useCollapseItem } from './provide'
 import { props } from './props'
+import { call, createNamespace } from '../utils/components'
 import { isArray } from '../utils/shared'
 import type { ComputedRef } from 'vue'
 import type { CollapseItemProvider } from '../collapse-item/provide'
 import type { CollapseProvider } from './provide'
+import type { CollapseModelValue } from './props'
+
+const { n } = createNamespace('collapse')
 
 export default defineComponent({
   name: 'VarCollapse',
@@ -37,8 +41,8 @@ export default defineComponent({
       return true
     }
 
-    const getValue = (value: number | string | undefined, isExpand: boolean) => {
-      if (!checkValue()) return
+    const getValue = (value: number | string, isExpand: boolean): CollapseModelValue => {
+      if (!checkValue()) return null
       if (isExpand) return props.accordion ? value : [...(props.modelValue as Array<string | number>), value]
 
       return props.accordion
@@ -46,11 +50,10 @@ export default defineComponent({
         : (props.modelValue as Array<string | number>).filter((name: string | number) => name !== value)
     }
 
-    const updateItem = (value: number | string | undefined, isExpand: boolean) => {
+    const updateItem = (value: number | string, isExpand: boolean) => {
       const modelValue = getValue(value, isExpand)
-
-      props['onUpdate:modelValue']?.(modelValue)
-      props.onChange?.(modelValue)
+      call(props['onUpdate:modelValue'], modelValue)
+      call(props.onChange, modelValue)
     }
 
     const matchName = (): Array<CollapseItemProvider> | CollapseItemProvider | undefined => {
@@ -119,6 +122,10 @@ export default defineComponent({
       () => props.modelValue,
       () => nextTick().then(resize)
     )
+
+    return {
+      n,
+    }
   },
 })
 </script>

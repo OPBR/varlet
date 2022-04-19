@@ -138,12 +138,12 @@ export function setThemes(config: Record<string, any>, name: 'themes' | 'darkThe
   StyleProvider(styleVars)
 }
 
-export function getBrowserThemes(): 'darkThemes' | 'themes' {
-  let currentThemes = window.localStorage.getItem('currentThemes') as 'darkThemes' | 'themes'
+export function getBrowserThemes(themes = 'VARLET_THEMES'): 'darkThemes' | 'themes' {
+  let currentThemes = window.localStorage.getItem(themes) as 'darkThemes' | 'themes'
 
   if (!currentThemes) {
     currentThemes = window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'darkThemes' : 'themes'
-    window.localStorage.setItem('currentThemes', currentThemes)
+    window.localStorage.setItem(themes, currentThemes)
   }
 
   return currentThemes

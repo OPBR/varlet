@@ -105,7 +105,7 @@ The props such as `label-visible`, `label-text-color`, `thumb-size` are invalid 
 
 ```html
 <var-slider v-model="value" range active-color="#52af77">
-  <template #button="currentValue">
+  <template #button="{ currentValue }">
     <div class="slider-example_block">{{ currentValue }}</div>
   </template>
 </var-slider>
@@ -154,7 +154,7 @@ Verify the value through the `rules` attribute.
 
 ### Props
 
-| prop | Description | Type | Default |
+| Prop | Description | Type | Default |
 | ----- | -------------- | -------- | ---------- |
 | `v-model` | The value of slider | _number \| [number, number]_ | `0` |
 | `step`| Step size. The value is an integer between `1 ~ 100` | _string \| number_ | `1` |

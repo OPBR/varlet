@@ -1,5 +1,9 @@
 # 按钮
 
+### 介绍
+
+按钮组件，用于触发操作
+
 ### 引入
 
 ```js
@@ -108,6 +112,7 @@ createApp().use(Button)
 ```html
 <var-button type="success" @click="handleClick">点击</var-button>
 <var-button type="success" @touchstart="handleTouchstart">触摸</var-button>
+<var-button type="success" @click="handleAutoLoadingClick" auto-loading>自动 loading</var-button>
 ```
 
 ```js
@@ -123,9 +128,16 @@ export default {
       Snackbar.success('触摸成功')
     }
 
+    const handleAutoLoadingClick = () => {
+      return new Promise((resolve) => {
+        setTimeout(resolve, 2000)
+      })
+    }
+
     return {
       handleClick,
-      handleTouchstart
+      handleTouchstart,
+      handleAutoLoadingClick
     }
   }
 }
@@ -135,29 +147,30 @@ export default {
 
 ### 属性
 
-| 参数 | 说明 | 类型 | 默认值 | 
-| --- | --- | --- | --- | 
-| `type` | 类型， 可选值为 `default` `primary` `info` `success` `warning` `danger` | _string_ | `default` |
-| `size` | 尺寸， 可选值为 `normal` `mini` `small` `large` | _string_ | `normal` |
-| `loading` | 加载状态 | _boolean_ | `false` |  
-| `loading-radius` | loading的半径，只作用于 `loading-type="circle"` 时 | _string \| number_ | `12` |
-| `loading-type` | loading的类型，可选值为 `circle` `wave` `cube` `rect` `disappear` | _string_ | `circle` |
-| `loading-size` | loading的尺寸，可选值为 `large` `normal` `small` `mini` 不作用于 `loading-type="circle"` 时 | _string_ | `normal` |
-| `round` | 是否是圆形按钮 | _boolean_ | `false` | 
-| `block` | 是否是块级元素 | _boolean_ | `false` | 
-| `text` | 是否是文字按钮 | _boolean_ | `false` |
-| `outline` | 是否使用外边框 | _boolean_ | `false` |
-| `disabled` | 禁用状态 | _boolean_ | `false` |
-| `ripple` | 是否使用水波纹 | _boolean_ | `true` |
-| `text-color` | 文字颜色 | _string_ | `-` |
-| `color` | 背景颜色 | _string_ | `-` |
+| 参数               | 说明                                                                              | 类型        | 默认值       |
+|------------------|---------------------------------------------------------------------------------|-----------|-----------|
+| `type`           | 类型，可选值为 `default` `primary` `info` `success` `warning` `danger`                 | _string_  | `default` |
+| `size`           | 尺寸，可选值为 `normal` `mini` `small` `large`                                         | _string_  | `normal`  |
+| `loading`        | 加载状态                                                                            | _boolean_ | `false`   |
+| `loading-radius` | loading 的半径，只作用于 `loading-type="circle"` 时                                      | _string \| number_   | `12` |
+| `loading-type`   | loading 的类型，可选值为 `circle` `wave` `cube` `rect` `disappear`                      | _string_  | `circle`  |
+| `loading-size`   | loading 的尺寸，可选值为 `large` `normal` `small` `mini` 不作用于 `loading-type="circle"` 时 | _string_  | `normal`  |
+| `auto-loading`   | 自动 loading 模式，方便处理异步任务                                                          | _boolean_ | `false`   |
+| `round`          | 是否是圆形按钮                                                                         | _boolean_ | `false`   |
+| `block`          | 是否是块级元素                                                                         | _boolean_ | `false`   |
+| `text`           | 是否是文字按钮                                                                         | _boolean_ | `false`   |
+| `outline`        | 是否使用外边框                                                                         | _boolean_ | `false`   |
+| `disabled`       | 禁用状态                                                                            | _boolean_ | `false`   |
+| `ripple`         | 是否使用水波纹                                                                         | _boolean_ | `true`    |
+| `text-color`     | 文字颜色                                                                            | _string_  | `-`       |
+| `color`          | 背景颜色                                                                            | _string_  | `-`       |
 
 ### 事件
 
 | 事件名 | 说明 | 参数 |
 | --- | --- | --- |
-| `click` | 点击按钮时触发， 在 `loading` 或 `disabled` 状态为 `true` 时不触发 | `event: Event` |
-| `touchstart` | 触摸手指压下按钮时触发， 在 `loading` 或 `disabled` 状态为 `true` 时不触发 | `event: Event` |
+| `click` | 点击按钮时触发，在 `loading` 或 `disabled` 状态为 `true` 时不触发 | `event: Event` |
+| `touchstart` | 触摸手指压下按钮时触发，在 `loading` 或 `disabled` 状态为 `true` 时不触发 | `event: Event` |
 
 ### 插槽
 
@@ -166,7 +179,7 @@ export default {
 | `default` | 按钮内容 | `-` |
 
 ### 样式变量
-以下为组件使用的css变量,可以使用[StyleProvider组件](#/zh-CN/style-provider)进行样式定制
+以下为组件使用的 css 变量，可以使用 [StyleProvider 组件](#/zh-CN/style-provider) 进行样式定制
 
 | 变量名 | 默认值 |
 | --- | --- |

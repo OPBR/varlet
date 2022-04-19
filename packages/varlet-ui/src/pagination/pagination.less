@@ -67,37 +67,42 @@
     outline: none;
     transition: all 0.25s;
     user-select: none;
-    background: var(--pagination-item-background);
+    background-color: var(--pagination-item-background);
 
     &:hover {
       background-color: var(--pagination-hover-bg-color);
     }
 
-    &-active {
+    &--active {
       color: var(--pagination-active-color);
       background-color: var(--pagination-active-bg-color) !important;
     }
 
-    &-disabled-active {
-      background: var(--pagination-bg-disabled-color);
-    }
-
-    &-hide {
+    &--hide {
       display: none;
     }
 
-    &-disabled {
-      cursor: default !important;
+    &--disabled {
+      cursor: default;
       color: var(--pagination-disabled-color);
+      background-color: unset;
 
       &:hover {
         background-color: unset;
       }
-    }
 
-    &-hover {
-      &:hover {
-        background: inherit;
+      &--hover {
+        &:hover {
+          background-color: inherit;
+        }
+      }
+
+      &--active {
+        background-color: var(--pagination-bg-disabled-color);
+
+        &:hover {
+          background-color: var(--pagination-bg-disabled-color);
+        }
       }
     }
   }
@@ -119,10 +124,14 @@
     line-height: var(--pagination-size-line-height);
     margin: var(--pagination-item-margin);
 
-    &-open {
+    &--open {
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      &--disabled {
+        cursor: default;
+      }
     }
   }
 
@@ -136,7 +145,7 @@
       background-color: var(--pagination-hover-bg-color);
     }
 
-    &-active {
+    &--active {
       background-color: var(--pagination-list-active-bg-color) !important;
       color: var(--pagination-list-active-color);
     }
@@ -168,7 +177,7 @@
     }
   }
 
-  &__size-open-icon[var-pagination-cover] {
+  &__size--open-icon[var-pagination-cover] {
     font-size: inherit;
   }
 

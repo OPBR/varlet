@@ -1,30 +1,30 @@
 <template>
-  <div class="var-checkbox__wrap" @click="handleClick">
-    <div class="var-checkbox">
+  <div :class="n('wrap')" @click="handleClick">
+    <div :class="n()">
       <div
-        class="var-checkbox__action"
-        :class="[
-          checked ? 'var-checkbox--checked' : 'var-checkbox--unchecked',
-          errorMessage || checkboxGroupErrorMessage ? 'var-checkbox--error' : null,
-          formDisabled || disabled ? 'var-checkbox--disabled' : null,
-        ]"
+        :class="
+          classes(
+            n('action'),
+            [checked, n('--checked'), n('--unchecked')],
+            [errorMessage || checkboxGroupErrorMessage, n('--error')],
+            [formDisabled || disabled, n('--disabled')]
+          )
+        "
         :style="{ color: checked ? checkedColor : uncheckedColor }"
         v-ripple="{ disabled: formReadonly || readonly || formDisabled || disabled || !ripple }"
       >
         <slot name="checked-icon" v-if="checked">
           <var-icon
-            class="var-checkbox__icon"
+            :class="classes(n('icon'), [withAnimation, n('--with-animation')])"
             name="checkbox-marked"
-            :class="[withAnimation ? 'var-checkbox--with-animation' : null]"
             :size="iconSize"
             var-checkbox-cover
           />
         </slot>
         <slot name="unchecked-icon" v-else>
           <var-icon
-            class="var-checkbox__icon"
+            :class="classes(n('icon'), [withAnimation, n('--with-animation')])"
             name="checkbox-blank-outline"
-            :class="[withAnimation ? 'var-checkbox--with-animation' : null]"
             :size="iconSize"
             var-checkbox-cover
           />
@@ -32,11 +32,13 @@
       </div>
 
       <div
-        class="var-checkbox__text"
-        :class="[
-          errorMessage || checkboxGroupErrorMessage ? 'var-checkbox--error' : null,
-          formDisabled || disabled ? 'var-checkbox--disabled' : null,
-        ]"
+        :class="
+          classes(
+            n('text'),
+            [errorMessage || checkboxGroupErrorMessage, n('--error')],
+            [formDisabled || disabled, n('--disabled')]
+          )
+        "
       >
         <slot />
       </div>
@@ -52,12 +54,14 @@ import VarFormDetails from '../form-details'
 import Ripple from '../ripple'
 import { defineComponent, ref, computed, watch, nextTick } from 'vue'
 import { props } from './props'
-import { useValidation } from '../utils/components'
+import { useValidation, createNamespace, call } from '../utils/components'
 import { useCheckboxGroup } from './provide'
 import { useForm } from '../form/provide'
 import type { Ref, ComputedRef } from 'vue'
 import type { ValidateTriggers } from './props'
 import type { CheckboxProvider } from './provide'
+
+const { n, classes } = createNamespace('checkbox')
 
 export default defineComponent({
   name: 'VarCheckbox',
@@ -68,7 +72,7 @@ export default defineComponent({
   },
   props,
   setup(props) {
-    const value: Ref<any> = ref(false)
+    const value: Ref = ref(false)
     const checked: ComputedRef<boolean> = computed(() => value.value === props.checkedValue)
     const checkedValue: ComputedRef<boolean> = computed(() => props.checkedValue)
     const withAnimation: Ref<boolean> = ref(false)
@@ -94,8 +98,8 @@ export default defineComponent({
 
       const { checkedValue, onChange } = props
 
-      props['onUpdate:modelValue']?.(value.value)
-      onChange?.(value.value)
+      call(props['onUpdate:modelValue'], value.value)
+      call(onChange, value.value)
       validateWithTrigger('onChange')
 
       changedValue === checkedValue ? checkboxGroup?.onChecked(checkedValue) : checkboxGroup?.onUnchecked(checkedValue)
@@ -108,7 +112,7 @@ export default defineComponent({
         return
       }
 
-      onClick?.(e)
+      call(onClick, e)
 
       if (form?.readonly.value || readonly) {
         return
@@ -129,9 +133,13 @@ export default defineComponent({
       value.value = values.includes(checkedValue) ? checkedValue : uncheckedValue
     }
 
+    const resetWithAnimation = () => {
+      withAnimation.value = false
+    }
+
     // expose
     const reset = () => {
-      props['onUpdate:modelValue']?.(props.uncheckedValue)
+      call(props['onUpdate:modelValue'], props.uncheckedValue)
       resetValidation()
     }
 
@@ -165,10 +173,11 @@ export default defineComponent({
       validate,
       resetValidation,
       reset,
+      resetWithAnimation,
     }
 
-    bindCheckboxGroup?.(checkboxProvider)
-    bindForm?.(checkboxProvider)
+    call(bindCheckboxGroup, checkboxProvider)
+    call(bindForm, checkboxProvider)
 
     return {
       withAnimation,
@@ -177,6 +186,8 @@ export default defineComponent({
       checkboxGroupErrorMessage: checkboxGroup?.errorMessage,
       formDisabled: form?.disabled,
       formReadonly: form?.readonly,
+      n,
+      classes,
       handleClick,
       toggle,
       reset,
@@ -189,6 +200,7 @@ export default defineComponent({
 
 <style lang="less">
 @import '../styles/common';
+@import '../ripple/ripple';
 @import '../form-details/formDetails';
 @import '../icon/icon';
 @import './checkbox';

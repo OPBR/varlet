@@ -128,12 +128,15 @@ If the limit is exceeded, the file will be blocked. You can get the file by list
 
 ```js
 import { ref } from 'vue'
+import { Snackbar } from '@varlet/ui'
 
 export default {
   setup() {
     const files = ref([])
 
-    const handleOversize = file => console.log(file)
+    const handleOversize = () => {
+      Snackbar.warning('file size exceeds limit')
+    }
 
     return {
       files,
@@ -153,12 +156,21 @@ Operate on a file by registering a `before-read` event that returns a false valu
 
 ```js
 import { ref } from 'vue'
+import { Snackbar } from '@varlet/ui'
 
 export default {
   setup() {
     const files = ref([])
 
-    const handleBeforeRead = file => file.file.size <= 1024 * 10
+    const handleBeforeRead = (file) => {
+      if (file.file.size <= 1 * 1024 * 1024) {
+        Snackbar.success('the file is less than 1M, the upload is successful')
+        return true
+      } else {
+        Snackbar.warning('the file is larger than 1M and cannot be uploaded')
+        return false
+      }
+    }
 
     return {
       files,
@@ -185,7 +197,7 @@ export default {
 Before deleting the file, the `before-remove` event is triggered, and a falsy value is returned to prevent the delete operation.
 
 ```html
- <var-uploader v-model="files" @remove="handleBeforeRemove" />
+<var-uploader v-model="files" @remove="handleBeforeRemove" />
 ```
 
 ```js
@@ -235,10 +247,40 @@ The second argument is a collection of utility functions that can quickly get a 
 ```html
 <var-uploader
   :rules="[
-    (v, u) => u.getError(v).length === 0 || 'There is a file that failed to upload'
+    (v, u) => u.getError().length === 0 || 'There is a file that failed to upload'
   ]"
   v-model="files"
 />
+```
+
+### Custom render file list
+
+You can use the `hide-list` to hide component files list, then you can render this list by custom.
+
+```html
+<var-space>
+  <img
+    class="custom-uploader-file"
+    v-for="f in files"
+    :key="f.id"
+    :src="f.cover"
+  />
+  <var-uploader hide-list v-model="files">
+    <var-button round type="primary">
+      <var-icon :size="28" name="upload" />
+    </var-button>
+  </var-uploader>
+</var-space>
+```
+
+```css
+.custom-uploader-file {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 12px;
+  object-fit: cover;
+}
 ```
 
 ## API
@@ -258,6 +300,7 @@ The second argument is a collection of utility functions that can quickly get a 
 | `maxsize` | Maximum file size | _string \| number_ | `-` |
 | `previewed` | Whether to allow preview | _boolean_ | `true` |
 | `ripple` | Whether to open ripple | _boolean_ | `true` |
+| `hide-list` | Whether to hide the file list | _boolean_ | `false` |
 | `validate-trigger` | Timing to trigger validation， The optional value is `onChange` `onRemove` | _ValidateTriggers[]_ | `['onChange', 'onRemove']` |
 | `rules` | The validation rules，Returns `true` to indicate that the validation passed，The remaining values are converted to text as user prompts | _Array<(v: VarFile, u: VarFileUtils) => any>_ | `-` |
 
@@ -276,17 +319,17 @@ The second argument is a collection of utility functions that can quickly get a 
 
 | Method | Description | Arguments | Return |
 | --- | --- | --- | --- |
-| `getLoading` | Gets a collection of files for `state` is `loading` | `VarFile[]` | `VarFile[]` |
-| `getSuccess` | Gets a collection of files for `state` is `success` | `VarFile[]` | `VarFile[]` |
-| `getError` | Gets a collection of files for `state` is `error` | `VarFile[]` | `VarFile[]` |
+| `getLoading` | Gets a collection of files for `state` is `loading` | `-` | `VarFile[]` |
+| `getSuccess` | Gets a collection of files for `state` is `success` | `-` | `VarFile[]` |
+| `getError` | Gets a collection of files for `state` is `error` | `-` | `VarFile[]` |
 
 ### Methods
 
 | Method | Description | Arguments | Return |
 | --- | --- | --- | --- |
-| `getLoading` | Gets a collection of files for `state` is `loading` | `VarFile[]` | `VarFile[]` |
-| `getSuccess` | Gets a collection of files for `state` is `success` | `VarFile[]` | `VarFile[]` |
-| `getError` |  Gets a collection of files for `state` is `error` | `VarFile[]` | `VarFile[]` |
+| `getLoading` | Gets a collection of files for `state` is `loading` | `-` | `VarFile[]` |
+| `getSuccess` | Gets a collection of files for `state` is `success` | `-` | `VarFile[]` |
+| `getError` |  Gets a collection of files for `state` is `error` | `-` | `VarFile[]` |
 | `validate` | Trigger validate | `-` | `valid: Promise<boolean>` |
 | `resetValidation` | Clearing validate messages | `-` | `-` |
 | `reset` | Clear the value of the binding(set to `[]`)and validate messages | `-` | `-` |

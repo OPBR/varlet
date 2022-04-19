@@ -1,20 +1,22 @@
 <template>
-  <ul class="var-pagination">
+  <ul :class="n()">
     <li
       v-ripple="{ disabled: current <= 1 || disabled }"
-      class="var-pagination__item var-pagination__prev"
-      :class="{
-        'var-pagination__item-disabled': current <= 1 || disabled,
-        'var-pagination__item-hover': simple,
-        'var-elevation--2': !simple,
-      }"
+      :class="
+        classes(
+          n('item'),
+          n('prev'),
+          [current <= 1 || disabled, n('item--disabled')],
+          [simple, n('item--hover'), 'var-elevation--2']
+        )
+      "
       @click="clickItem('prev')"
     >
       <slot name="prev">
         <var-icon name="chevron-left" />
       </slot>
     </li>
-    <li v-if="simple" class="var-pagination__simple" :class="{ 'var-pagination__item-disabled': disabled }">
+    <li v-if="simple" :class="classes(n('simple'), [disabled, n('item--disabled')])">
       <var-input
         v-model="simpleValue"
         :disabled="disabled"
@@ -30,25 +32,30 @@
       v-for="(item, index) in pageList"
       :key="toNumber(item) + index"
       :item-mode="getMode(item, index)"
-      class="var-pagination__item var-elevation--2"
-      :class="{
-        'var-pagination__item-active': item === current && !disabled,
-        'var-pagination__item-hide': isHideEllipsis(item, index),
-        'var-pagination__item-disabled': disabled,
-        'var-pagination__item-disabled-active': item === current && disabled,
-      }"
+      :class="
+        classes(
+          n('item'),
+          'var-elevation--2',
+          [item === current && !disabled, n('item--active')],
+          [isHideEllipsis(item, index), n('item--hide')],
+          [disabled, n('item--disabled')],
+          [item === current && disabled, n('item--disabled--active')]
+        )
+      "
       @click="clickItem(item, index)"
     >
       {{ item }}
     </li>
     <li
       v-ripple="{ disabled: current >= pageCount || disabled }"
-      class="var-pagination__item var-pagination__next"
-      :class="{
-        'var-pagination__item-disabled': current >= pageCount || disabled,
-        'var-pagination__item-hover': simple,
-        'var-elevation--2': !simple,
-      }"
+      :class="
+        classes(
+          n('item'),
+          n('next'),
+          [current >= pageCount || disabled, n('item--disabled')],
+          [simple, n('item--hover'), 'var-elevation--2']
+        )
+      "
       @click="clickItem('next')"
     >
       <slot name="next">
@@ -56,19 +63,16 @@
       </slot>
     </li>
 
-    <li v-if="showSizeChanger" class="var-pagination__size" :class="{ 'var-pagination__item-disabled': disabled }">
+    <li v-if="showSizeChanger" :class="classes(n('size'), [disabled, n('item--disabled')])">
       <var-menu v-model:show="menuVisible" :offset-x="-4">
-        <div class="var-pagination__size-open" style="display: flex" @click="showMenu">
+        <div :class="classes(n('size--open'), [current <= 1 || disabled, n('size--open--disabled')])" @click="showMenu">
           <span>{{ size }}{{ pack.paginationItem }} / {{ pack.paginationPage }}</span>
-          <var-icon class="var-pagination__size-open-icon" var-pagination-cover name="menu-down" />
+          <var-icon :class="n('size--open-icon')" var-pagination-cover name="menu-down" />
         </div>
 
         <template #menu>
           <var-cell
-            class="var-pagination__list"
-            :class="{
-              'var-pagination__list-active': size === option,
-            }"
+            :class="classes(n('list'), [size === option, n('list--active')])"
             v-ripple
             v-for="(option, index) in sizeOption"
             :key="index"
@@ -79,11 +83,7 @@
         </template>
       </var-menu>
     </li>
-    <li
-      v-if="showQuickJumper && !simple"
-      class="var-pagination__quickly"
-      :class="{ 'var-pagination__item-disabled': disabled }"
-    >
+    <li v-if="showQuickJumper && !simple" :class="classes(n('quickly'), [disabled, 'item--disabled'])">
       {{ pack.paginationJump }}
       <var-input
         v-model="inputValue"
@@ -94,7 +94,7 @@
       />
     </li>
 
-    <li v-if="totalText" class="var-pagination__total">
+    <li v-if="totalText" :class="n('total')">
       {{ totalText }}
     </li>
   </ul>
@@ -112,6 +112,9 @@ import { isNumber, toNumber } from '../utils/shared'
 import { pack } from '../locale'
 import type { ComputedRef, Ref } from 'vue'
 import type { Range } from './porps'
+import { createNamespace } from '../utils/components'
+
+const { n, classes } = createNamespace('pagination')
 
 export default defineComponent({
   name: 'VarPagination',
@@ -213,20 +216,21 @@ export default defineComponent({
     })
 
     watch(
-      [current, pageCount],
-      ([newCurrent, newCount], [oldCurrent, oldCount]) => {
-        if (newCurrent > newCount) {
-          current.value = newCount
+      [current, size],
+      ([newCurrent, newSize], [oldCurrent, oldSize]) => {
+        if (newCurrent > pageCount.value) {
+          current.value = pageCount.value
           return
         }
 
         let list = []
-        const { maxPagerCount } = props
-        const rEllipseSign = newCount - (maxPagerCount - activePosition.value) - 1
+        const { maxPagerCount, total, onChange } = props
+        const oldCount = Math.ceil(toNumber(total) / toNumber(oldSize))
+        const rEllipseSign = pageCount.value - (maxPagerCount - activePosition.value) - 1
         simpleValue.value = `${newCurrent}`
 
-        if (newCount - 2 > maxPagerCount) {
-          if (oldCurrent === undefined || newCount !== oldCount) {
+        if (pageCount.value - 2 > maxPagerCount) {
+          if (oldCurrent === undefined || pageCount.value !== oldCount) {
             for (let i = 2; i < maxPagerCount + 2; i++) list.push(i)
           }
 
@@ -258,21 +262,23 @@ export default defineComponent({
             list = []
 
             for (let i = 1; i < maxPagerCount + 1; i++) {
-              list.push(newCount - (maxPagerCount - i) - 1)
+              list.push(pageCount.value - (maxPagerCount - i) - 1)
             }
 
             isHideEllipsisHead.value = false
             isHideEllipsisTail.value = true
           }
 
-          list = [1, '...', ...list, '...', newCount]
+          list = [1, '...', ...list, '...', pageCount.value]
         } else {
-          for (let i = 1; i <= newCount; i++) list.push(i)
+          for (let i = 1; i <= pageCount.value; i++) list.push(i)
         }
 
         pageList.value = list
 
-        if (oldCurrent !== undefined) props.onChange?.(newCurrent, size.value)
+        if (oldCurrent !== undefined) onChange?.(newCurrent, newSize)
+        props['onUpdate:current']?.(newCurrent)
+        props['onUpdate:size']?.(newSize)
       },
       {
         immediate: true,
@@ -280,6 +286,8 @@ export default defineComponent({
     )
 
     return {
+      n,
+      classes,
       pack,
       current,
       menuVisible,

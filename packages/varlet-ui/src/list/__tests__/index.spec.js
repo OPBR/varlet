@@ -1,15 +1,8 @@
-import example from '../example'
 import List from '..'
 import VarList from '../List'
 import { mount } from '@vue/test-utils'
 import { createApp, h } from 'vue'
 import { delay } from '../../utils/jest'
-
-test('test list example', () => {
-  const wrapper = mount(example)
-  expect(wrapper.html()).toMatchSnapshot()
-  wrapper.unmount()
-})
 
 test('test list plugin', () => {
   const app = createApp({}).use(List)
@@ -28,10 +21,7 @@ test('test list immediate check', async () => {
     attachTo: document.body,
   })
 
-  const mockGetBoundingClientRect = jest.spyOn(wrapper.element, 'getBoundingClientRect').mockReturnValue({
-    width: 100,
-    height: 100,
-  })
+  const mockGetBoundingClientRect = jest.spyOn(wrapper.element, 'getBoundingClientRect').mockReturnValue({ bottom: 0 })
   await delay(16)
 
   expect(onLoad).toHaveBeenCalledTimes(1)
@@ -59,10 +49,7 @@ test('test click error text reload', async () => {
     attachTo: document.body,
   })
 
-  const mockGetBoundingClientRect = jest.spyOn(wrapper.element, 'getBoundingClientRect').mockReturnValue({
-    width: 100,
-    height: 100,
-  })
+  const mockGetBoundingClientRect = jest.spyOn(wrapper.element, 'getBoundingClientRect').mockReturnValue({ bottom: 50 })
 
   await delay(16)
 

@@ -33,13 +33,13 @@
     <div
       class="example__icon var-elevation--2"
       :style="{ background }"
-      :data-clipboard-text="iconName"
-      :key="iconName"
-      v-for="iconName in iconNames"
+      :data-clipboard-text="name"
+      :key="name"
+      v-for="name in iconNames"
       v-ripple
     >
-      <var-icon :name="iconName" />
-      <div class="example__icon-name">{{ iconName }}</div>
+      <var-icon :name="name" />
+      <div class="example__icon-name">{{ name }}</div>
     </div>
   </div>
 </template>
@@ -49,13 +49,12 @@ import VarIcon from '..'
 import Ripple from '../../ripple'
 import Snackbar from '../../snackbar'
 import AppType from '@varlet/cli/site/mobile/components/AppType'
-import context from '../../context'
 import Clipboard from 'clipboard'
 import icons from '@varlet/icons'
 import dark from '../../themes/dark'
-import { reactive, onMounted, ref, onUnmounted } from 'vue'
+import { reactive, onMounted, ref } from 'vue'
 import { use, pack } from './locale'
-import { watchLang, watchPlatform, watchDarkMode } from '@varlet/cli/site/utils'
+import { watchLang, watchDarkMode } from '@varlet/cli/site/utils'
 
 export default {
   name: 'IconExample',
@@ -86,16 +85,6 @@ export default {
     watchLang(use)
     watchDarkMode(dark, (themes) => {
       background.value = themes === 'darkThemes' ? '#303030' : '#fff'
-    })
-
-    const prevTouchmoveForbid = context.touchmoveForbid
-    watchPlatform((platform) => {
-      if (platform === 'pc') {
-        context.touchmoveForbid = false
-      }
-    })
-    onUnmounted(() => {
-      context.touchmoveForbid = prevTouchmoveForbid
     })
 
     return {

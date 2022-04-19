@@ -1,8 +1,7 @@
 <template>
-  <div class="var-swipe" ref="swipeEl">
+  <div :class="n()" ref="swipeEl">
     <div
-      class="var-swipe__track"
-      :class="[vertical ? 'var-swipe--vertical' : null]"
+      :class="classes(n('track'), [vertical, n('--vertical')])"
       :style="{
         width: !vertical ? `${trackSize}px` : undefined,
         height: vertical ? `${trackSize}px` : undefined,
@@ -17,17 +16,11 @@
     </div>
 
     <slot name="indicator" :index="index" :length="length">
-      <div
-        class="var-swipe__indicators"
-        :class="[vertical ? 'var-swipe--indicators-vertical' : null]"
-        v-if="indicator && length"
-      >
+      <div :class="classes(n('indicators'), [vertical, n('--indicators-vertical')])" v-if="indicator && length">
         <div
-          class="var-swipe__indicator"
-          :class="[
-            index === idx ? 'var-swipe--indicator-active' : null,
-            vertical ? 'var-swipe--indicator-vertical' : null,
-          ]"
+          :class="
+            classes(n('indicator'), [index === idx, n('--indicator-active')], [vertical, n('--indicator-vertical')])
+          "
           :style="{ background: indicatorColor }"
           :key="l"
           v-for="(l, idx) in length"
@@ -41,15 +34,18 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useSwipeItems } from './provide'
-import { nextTickFrame } from '../utils/elements'
+import { doubleRaf, nextTickFrame } from '../utils/elements'
 import { props } from './props'
 import { isNumber, toNumber } from '../utils/shared'
 import type { Ref, ComputedRef } from 'vue'
 import type { SwipeProvider } from './provide'
 import type { SwipeItemProvider } from '../swipe-item/provide'
+import { call, createNamespace } from '../utils/components'
 
 const SWIPE_DELAY = 250
 const SWIPE_DISTANCE = 20
+
+const { n, classes } = createNamespace('swipe')
 
 export default defineComponent({
   name: 'VarSwipe',
@@ -155,18 +151,12 @@ export default defineComponent({
 
       nextTickFrame(() => {
         lockDuration.value = false
-        fn?.()
+        call(fn)
       })
     }
 
     const initialIndex = () => {
-      lockDuration.value = true
       index.value = boundaryIndex(toNumber(props.initialIndex))
-      translate.value = index.value * -size.value
-
-      nextTickFrame(() => {
-        lockDuration.value = false
-      })
     }
 
     const startAutoplay = () => {
@@ -185,7 +175,7 @@ export default defineComponent({
     }
 
     const stopAutoplay = () => {
-      timer && clearInterval(timer)
+      timer && clearTimeout(timer)
     }
 
     const getDirection = (x: number, y: number) => {
@@ -267,19 +257,28 @@ export default defineComponent({
       index.value = swipeIndexToIndex(swipeIndex)
       startAutoplay()
 
-      prevIndex !== index.value && onChange?.(index.value)
+      prevIndex !== index.value && call(onChange, index.value)
     }
 
     // expose
     const resize = () => {
+      lockDuration.value = true
+
       size.value = props.vertical
         ? (swipeEl.value as HTMLElement).offsetHeight
         : (swipeEl.value as HTMLElement).offsetWidth
-
       trackSize.value = size.value * length.value
+      translate.value = index.value * -size.value
 
-      initialIndex()
+      swipeItems.forEach((swipeItem) => {
+        swipeItem.setTranslate(0)
+      })
+
       startAutoplay()
+
+      setTimeout(() => {
+        lockDuration.value = false
+      })
     }
     // expose
     const next = () => {
@@ -291,7 +290,7 @@ export default defineComponent({
 
       const currentIndex = index.value
       index.value = boundaryIndex(currentIndex + 1)
-      onChange?.(index.value)
+      call(onChange, index.value)
 
       fixPosition(() => {
         if (currentIndex === length.value - 1 && loop) {
@@ -315,7 +314,7 @@ export default defineComponent({
 
       const currentIndex = index.value
       index.value = boundaryIndex(currentIndex - 1)
-      onChange?.(index.value)
+      call(onChange, index.value)
 
       fixPosition(() => {
         if (currentIndex === 0 && loop) {
@@ -350,7 +349,15 @@ export default defineComponent({
 
     bindSwipeItems(swipeProvider)
 
-    watch(() => length.value, resize)
+    watch(
+      () => length.value,
+      async () => {
+        // In nuxt, the size of the swipe cannot got when the route is change, need double raf
+        await doubleRaf()
+        initialIndex()
+        resize()
+      }
+    )
 
     onMounted(() => {
       window.addEventListener('resize', resize)
@@ -362,6 +369,8 @@ export default defineComponent({
     })
 
     return {
+      n,
+      classes,
       length,
       index,
       swipeEl,

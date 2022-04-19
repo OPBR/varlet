@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.1](https://github.com/haoziqaq/varlet/compare/v1.24.0...v1.24.1) (2021-12-27)
+
+
+### Bug Fixes
+
+* **ui/elevation:** resolve shadow cannot display ([227b2db](https://github.com/haoziqaq/varlet/commit/227b2dbab2884a8914ef5a530c18dfffff010323))
+
+
+
+
+
+# [1.24.0](https://github.com/haoziqaq/varlet/compare/v1.23.11...v1.24.0) (2021-12-27)
+
+
+### Bug Fixes
+
+* **card:** add word-break for description ([38d7427](https://github.com/haoziqaq/varlet/commit/38d74270eed5bc71b4f821f5433604b7a62eecbc))
+* **d.ts:** fix pack declare lost after build ([d7df27e](https://github.com/haoziqaq/varlet/commit/d7df27e439a2b28fa4a9cfb867129611f2a268b3))
+* **loading:** add transition for overlay ([2a62eaa](https://github.com/haoziqaq/varlet/commit/2a62eaa8eed6a5ff77222b48932b39655744ffae))
+* **loading:** expose marigin css variable ([313d232](https://github.com/haoziqaq/varlet/commit/313d232b363981ce94c11e419ace904bfc2b246d))
+* **placeholder:** text-overflow to ellipsis ([7c586d2](https://github.com/haoziqaq/varlet/commit/7c586d2f7e751a12993d06e46d460ac25de24b22))
+* **select:** fix select's placeholder when too long ([a7e08a6](https://github.com/haoziqaq/varlet/commit/a7e08a60e7d2d8f49f0863fcda6814bc1fdd4fdc))
+* **types:** fix prompts that could not find a declaration file when import translation file ([2637884](https://github.com/haoziqaq/varlet/commit/26378841f2fbafeda8bcd6fffd5eccfd50e9e559))
+* **types:** fix prompts that could not find a declaration file when import translation file ([e17c6d2](https://github.com/haoziqaq/varlet/commit/e17c6d2c430f1b4601875e98ca92d075a1de5813))
+* **ui/input, select:** fix placeholder animation and var--ellipsis class ([458ab30](https://github.com/haoziqaq/varlet/commit/458ab307652328ace71dc0523323422f7ebdbaac))
+* **ui/swipe:** do not use initialIndex when resize ([46e997e](https://github.com/haoziqaq/varlet/commit/46e997e8f014432149f409e40545592757ae4484))
+
+
+### Features
+
+* **loading:** add slots and desc prop ([db0df16](https://github.com/haoziqaq/varlet/commit/db0df16af2cab2de059282e9a8c15c66077b1ae2))
+
+
+
+
+
+## [1.23.11](https://github.com/haoziqaq/varlet/compare/v1.23.10...v1.23.11) (2021-12-10)
+
+
+### Bug Fixes
+
+* **card:** fix image css problem in card  ([#224](https://github.com/haoziqaq/varlet/issues/224)) ([498cb3c](https://github.com/haoziqaq/varlet/commit/498cb3c41f70ca265ab407cb9d4ed4100abf6c9f))
+* **fix the offset problem when the divider is vertical:** remove transformY,use align-items: center ([5b10f08](https://github.com/haoziqaq/varlet/commit/5b10f08ef6e2ebdbae4c3e199b23e68a319181e2))
+* fix types ([2d95d4c](https://github.com/haoziqaq/varlet/commit/2d95d4c53a8e106ef38d23b372e7f5583d7ef0d2))
+* remove unused code ([b37f258](https://github.com/haoziqaq/varlet/commit/b37f25809adfc0a7e3e8a3ecf3085715c531aa7f))
+
+
+
+
+
+## [1.23.10](https://github.com/haoziqaq/varlet/compare/v1.23.9...v1.23.10) (2021-12-01)
+
+
+### Bug Fixes
+
+* **ui/icon:** fix vertical align to bottom ([b2c4da9](https://github.com/haoziqaq/varlet/commit/b2c4da9a1a4df2ee43b27b005576f3523e7a4e5f))
+
+
+
+
+
+## [1.23.9](https://github.com/haoziqaq/varlet/compare/v1.23.8...v1.23.9) (2021-11-25)
+
+
+### Bug Fixes
+
+* **ui/checkbox:** add ripple depend style ([b8345fa](https://github.com/haoziqaq/varlet/commit/b8345fa2792f6b3b0f7b9651a5fb63590397eb5a))
+
+
+
+
+
+## [1.23.8](https://github.com/haoziqaq/varlet/compare/v1.23.7...v1.23.8) (2021-11-24)
+
+
+### Bug Fixes
+
+* **d.ts:** repair type ([b925e7e](https://github.com/haoziqaq/varlet/commit/b925e7ea63c4154b3c26cb711fde4a7382633c80))
+* compatible dayjs for nuxt ([0b3b540](https://github.com/haoziqaq/varlet/commit/0b3b540694e13130686773d9bcd3c3c4d21da496))
+
+
+
+
+
 ## [1.23.7](https://github.com/haoziqaq/varlet/compare/v1.23.6...v1.23.7) (2021-11-23)
 
 

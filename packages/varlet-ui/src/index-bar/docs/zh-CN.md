@@ -18,17 +18,17 @@ createApp().use(IndexBar).use(IndexAnchor)
 点击索引栏时，会自动跳转到对应的 `IndexAnchor` 锚点位置。
 
 ```html
-<var-index-bar 
-  duration="300" 
+<var-index-bar
+  duration="300"
   :sticky-offset-top="54"
-  @change="change" 
+  @change="change"
 >
   <div v-for="item in list" :key="item">
-    <var-index-anchor 
-      :index="item" 
+    <var-index-anchor
+      :index="item"
       class="var-index-anchor__example"
-    > 
-      标题 {{ item }} 
+    >
+      标题 {{ item }}
     </var-index-anchor>
     <var-cell>{{ item }} 文本</var-cell>
     <var-cell>{{ item }} 文本</var-cell>
@@ -39,45 +39,45 @@ createApp().use(IndexBar).use(IndexAnchor)
 ```javascript
 import { ref, onMounted } from 'vue'
 
-  export default {
-    setup() {
-      const list = ref([])
+export default {
+  setup() {
+    const list = ref([])
 
-      onMounted(() => {
-        for (let i = 0; i < 26; i++) {
-          list.value.push(String.fromCharCode(65 + i))
-        }
-      })
-
-      const change = (value) => {
-        console.log(value)
+    onMounted(() => {
+      for (let i = 0; i < 26; i++) {
+        list.value.push(String.fromCharCode(65 + i))
       }
+    })
 
-      return {
-        list,
-        change
-      }
+    const change = (value) => {
+      console.log(value)
+    }
+
+    return {
+      list,
+      change
     }
   }
+}
 ```
 
 ## API
 
 ### 属性
 
-### IndexBar 属性
+#### IndexBar Props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | ----- | -------------- | -------- | ---------- |
 | `sticky` | 是否开启锚点吸顶 | _boolean_ | `true` |
 | `sticky-offset-top` | 锚点吸顶时与顶部的距离 | _number_ | `0` |
 | `hide-list` | 是否隐藏锚点列表 | _boolean_ | `false` |
-| `css-mode` | 开启原生`css sticky`模式 | _boolean_ | `false` |
+| `css-mode` | 开启原生 `css sticky` 模式 | _boolean_ | `false` |
 | `z-index` | z-index 层级 | _number \| string_ | `1` |
 | `highlight-color` | 索引字符高亮颜色 | _string_ | `#ee0a24` |
 | `duration` | 动画持续时间 | _string \| number_ | `0` |
 
-### IndexAnchor 属性
+#### IndexAnchor Props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | ----- | -------------- | -------- | ---------- |
@@ -85,7 +85,7 @@ import { ref, onMounted } from 'vue'
 
 ### 事件
 
-### IndexBar 事件
+#### IndexBar Events
 
 | 事件名 | 说明 | 回调参数 |
 | ----- | -------------- | -------- |
@@ -94,7 +94,7 @@ import { ref, onMounted } from 'vue'
 
 ### 插槽
 
-### IndexAnchor 插槽
+#### IndexAnchor Slots
 
 | 名称 | 说明 | 参数 |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ import { ref, onMounted } from 'vue'
 | `scrollTo` | 滚动到指定锚点	 | `index: number \| string` |
 
 ### 样式变量
-以下为组件使用的css变量,可以使用[StyleProvider组件](#/zh-CN/style-provider)进行样式定制
+以下为组件使用的 css 变量，可以使用 [StyleProvider 组件](#/zh-CN/style-provider) 进行样式定制
 
 | 变量名 | 默认值 |
 | --- | --- |

@@ -1,5 +1,7 @@
 @import '../styles/var';
 
+@loading-opacity: 0.38;
+@loading-desc-margin: 8px 0 0;
 @loading-normal-width: 50px;
 @loading-normal-height: @font-size-md + 2;
 
@@ -12,10 +14,60 @@
 @loading-mini-width: 22px;
 @loading-mini-height: @font-size-xs + 2;
 
+:root {
+  --loading-opacity: @loading-opacity;
+  --loading-desc-margin: @loading-desc-margin;
+}
+
 .var-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+
+  &__content {
+    transition: opacity 0.3s;
+    opacity: 1;
+
+    &--active {
+      opacity: var(--loading-opacity);
+      user-select: none;
+    }
+  }
+
+  &__body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+  }
+
+  &__inside {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  &__description {
+    color: currentColor;
+    margin: var(--loading-desc-margin);
+
+    &--large {
+      font-size: @font-size-lg;
+    }
+
+    &--normal {
+      font-size: @font-size-md;
+    }
+
+    &--small {
+      font-size: @font-size-sm;
+    }
+
+    &--mini {
+      font-size: @font-size-xs;
+    }
+  }
 
   &__circle {
     display: flex;
@@ -72,22 +124,22 @@
     align-items: center;
     justify-content: center;
 
-    &-large {
+    &--large {
       width: @loading-large-width;
       height: @loading-large-height;
     }
 
-    &-normal {
+    &--normal {
       width: @loading-normal-width;
       height: @loading-normal-height;
     }
 
-    &-small {
+    &--small {
       width: @loading-small-width;
       height: @loading-small-height;
     }
 
-    &-mini {
+    &--mini {
       width: @loading-mini-width;
       height: @loading-mini-height;
     }
@@ -119,22 +171,22 @@
       }
     }
 
-    &-item-large {
+    &-item--large {
       width: @loading-wave-size-item-width;
       margin-left: @loading-wave-size-item-margin;
     }
 
-    &-item-normal {
+    &-item--normal {
       width: @loading-wave-size-item-width - 1;
       margin-left: @loading-wave-size-item-margin - 1;
     }
 
-    &-item-small {
+    &-item--small {
       width: @loading-wave-size-item-width - 2;
       margin-left: @loading-wave-size-item-margin - 2;
     }
 
-    &-item-mini {
+    &-item--mini {
       width: @loading-wave-size-item-width - 3;
       margin-left: @loading-wave-size-item-margin - 3;
     }
@@ -159,22 +211,22 @@
     display: flex;
     align-items: center;
 
-    &-large {
+    &--large {
       width: @loading-large-width;
       height: @loading-large-height;
     }
 
-    &-normal {
+    &--normal {
       width: @loading-normal-width;
       height: @loading-normal-height;
     }
 
-    &-small {
+    &--small {
       width: @loading-small-width;
       height: @loading-small-height;
     }
 
-    &-mini {
+    &--mini {
       width: @loading-mini-width;
       height: @loading-mini-height;
     }
@@ -202,25 +254,25 @@
       }
     }
 
-    &-item-large {
+    &-item--large {
       height: @loading-cube-size-item-height;
       width: @loading-cube-size-item-width;
       margin-left: @loading-cube-size-item-margin;
     }
 
-    &-item-normal {
+    &-item--normal {
       height: @loading-cube-size-item-height - 2;
       width: @loading-cube-size-item-width - 2;
       margin-left: @loading-cube-size-item-margin - 1;
     }
 
-    &-item-small {
+    &-item--small {
       height: @loading-cube-size-item-height - 4;
       width: @loading-cube-size-item-width - 4;
       margin-left: @loading-cube-size-item-margin - 2;
     }
 
-    &-item-mini {
+    &-item--mini {
       height: @loading-cube-size-item-height - 6;
       width: @loading-cube-size-item-width - 6;
       margin-left: @loading-cube-size-item-margin - 3;
@@ -247,22 +299,22 @@
     justify-content: center;
     align-items: center;
 
-    &-large {
+    &--large {
       width: @loading-large-width;
       height: @loading-large-height;
     }
 
-    &-normal {
+    &--normal {
       width: @loading-normal-width;
       height: @loading-normal-height;
     }
 
-    &-small {
+    &--small {
       width: @loading-small-width;
       height: @loading-small-height;
     }
 
-    &-mini {
+    &--mini {
       width: @loading-mini-width;
       height: @loading-mini-height;
     }
@@ -303,22 +355,22 @@
       }
     }
 
-    &-item-large {
+    &-item--large {
       height: @loading-rect-size-item-height;
       width: @loading-rect-size-item-width;
     }
 
-    &-item-normal {
+    &-item--normal {
       height: @loading-rect-size-item-height * 0.9;
       width: @loading-rect-size-item-width * 0.8;
     }
 
-    &-item-small {
+    &-item--small {
       height: @loading-rect-size-item-height * 0.8;
       width: @loading-rect-size-item-width * 0.6;
     }
 
-    &-item-mini {
+    &-item--mini {
       height: @loading-rect-size-item-height * 0.7;
       width: @loading-rect-size-item-width * 0.4;
     }
@@ -351,22 +403,22 @@
     align-items: center;
     flex-flow: nowrap;
 
-    &-large {
+    &--large {
       width: @loading-large-width;
       height: @loading-large-height;
     }
 
-    &-normal {
+    &--normal {
       width: @loading-normal-width;
       height: @loading-normal-height;
     }
 
-    &-small {
+    &--small {
       width: @loading-small-width;
       height: @loading-small-height;
     }
 
-    &-mini {
+    &--mini {
       width: @loading-mini-width;
       height: @loading-mini-height;
     }
@@ -388,22 +440,22 @@
       }
     }
 
-    &-item-large {
+    &-item--large {
       height: @loading-disappear-size-item-height;
       width: @loading-disappear-size-item-width;
     }
 
-    &-item-normal {
+    &-item--normal {
       height: @loading-disappear-size-item-height * 0.8;
       width: @loading-disappear-size-item-width * 0.8;
     }
 
-    &-item-small {
+    &-item--small {
       height: @loading-disappear-size-item-height * 0.6;
       width: @loading-disappear-size-item-width * 0.6;
     }
 
-    &-item-mini {
+    &-item--mini {
       height: @loading-disappear-size-item-height * 0.4;
       width: @loading-disappear-size-item-width * 0.4;
     }

@@ -1,27 +1,16 @@
 {
-  "name": "root",
   "private": true,
-  "useWorkspaces": true,
-  "version": "0.0.0",
-  "author": "haoziqaq <357229046@qq.com>",
-  "main": "index.js",
-  "npmClient": "yarn",
-  "workspaces": [
-    "packages/*"
-  ],
-  "license": "MIT",
+  "version": "1.27.5",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "bootstrap": "pnpm install && node scripts/bootstrap.mjs",
     "lint": "varlet-cli lint",
-    "bootstrap": "yarn && node scripts/bootstrap.mjs",
-    "commit": "git-cz",
-    "prepare": "husky install",
-    "publish": "node scripts/publish.mjs && lerna publish",
-    "gen": "varlet-cli gen"
+    "changelog": "varlet-cli changelog",
+    "release": "node scripts/publish.mjs && varlet-cli release"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-lerna-changelog"
-    }
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged --allow-empty --concurrent false",
+    "commit-msg": "npx --no-install varlet-cli commit-lint $1"
   },
   "lint-staged": {
     "*.{ts,tsx,js,vue,less}": "prettier --write",
@@ -41,7 +30,9 @@
       "packages/varlet-ui/site/**",
       "packages/varlet-ui/public/**",
       "packages/varlet-ui/src/*/__tests__/**",
-      "packages/varlet-ui/.varlet/**"
+      "packages/varlet-ui/.varlet/**",
+      "packages/varlet-ui-playground/public/**",
+      "packages/varlet-ui-playground/dist/**"
     ],
     "extends": [
       "@varlet"
@@ -62,15 +53,25 @@
       "packages/varlet-ui/site/**",
       "packages/varlet-ui/coverage/**",
       "packages/varlet-ui/highlight/**",
-      "packages/varlet-ui/public/**"
+      "packages/varlet-ui/public/**",
+      "packages/varlet-ui/.varlet/**",
+      "packages/varlet-ui-playground/public/**",
+      "packages/varlet-ui-playground/dist/**"
     ]
   },
   "devDependencies": {
-    "surge": "^0.23.0",
-    "cz-lerna-changelog": "^2.0.3",
+    "@varlet/cli": "workspace:*",
+    "@varlet/eslint-config": "workspace:*",
+    "@varlet/icons": "workspace:*",
+    "@varlet/stylelint-config": "workspace:*",
+    "eslint": "^7.30.0",
     "execa": "^5.0.0",
-    "lerna": "^3.22.1",
+    "lint-staged": "^10.5.0",
     "ora": "^5.4.0",
-    "vue": "3.2.16"
-  }
+    "prettier": "^2.3.2",
+    "simple-git-hooks": "^2.7.0",
+    "stylelint": "^13.13.1",
+    "typescript": "^4.4.4"
+  },
+  "packageManager": "pnpm@6.24.3"
 }

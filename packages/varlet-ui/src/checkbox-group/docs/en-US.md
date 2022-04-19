@@ -1,5 +1,9 @@
 # Checkbox
 
+### Intro
+
+A group of options for multiple choices
+
 ### Install
 
 ```js
@@ -144,19 +148,19 @@ export default {
 
 ### Props
 
-### CheckboxGroup Props
+#### CheckboxGroup Props
 
-| Prop | Description | Type | Default | 
-| --- | --- | --- | --- | 
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
 | `v-model` | The value of the binding | _any[]_ | `[]` |
 | `max` | Maximum number of checked | _string \| number_ | `-` |
 | `direction` | The layout direction，Optional value is `horizontal` `vertical` | _string \| number_ | `horizontal` |
 | `rules` | The validation rules，Returns `true` to indicate that the validation passed，The remaining values are converted to text as user prompts | _Array<(value: any[]) => any>_ | `horizontal` |
 
-### Checkbox Props
+#### Checkbox Props
 
-| Prop | Description | Type | Default | 
-| --- | --- | --- | --- | 
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
 | `v-model` | The value of the binding | _any_ | `false` |
 | `checked-value` | Checked value | _any_ | `true` |
 | `unchecked-value` | Unchecked value | _any_ | `false` |
@@ -170,7 +174,7 @@ export default {
 
 ### Methods
 
-### CheckboxGroup Methods
+#### CheckboxGroup Methods
 
 | Method | Description | Arguments | Return |
 | --- | --- | --- | --- |
@@ -180,7 +184,7 @@ export default {
 | `checkAll` | Check all | `-` | `value: any` |
 | `inverseAll` | Inverse all | `-` | `value: any` |
 
-### Checkbox Methods
+#### Checkbox Methods
 
 | Method | Description | Arguments | Return |
 | --- | --- | --- | --- |
@@ -191,13 +195,13 @@ export default {
 
 ### Events
 
-### CheckboxGroup Events
+#### CheckboxGroup Events
 
 | Event | Description | Arguments |
 | --- | --- | --- |
 | `change` | Trigger on change | `value: any[]` |
 
-### Checkbox Events
+#### Checkbox Events
 
 | Event | Description | Arguments |
 | --- | --- | --- |
@@ -206,13 +210,13 @@ export default {
 
 ### Slots
 
-### CheckboxGroup Slots
+#### CheckboxGroup Slots
 
 | Slot | Description | Arguments |
 | --- | --- | --- |
 | `default` | Checkbox group content | `-` |
 
-### Checkbox Slots
+#### Checkbox Slots
 
 | Slot | Description | Arguments |
 | --- | --- | --- |

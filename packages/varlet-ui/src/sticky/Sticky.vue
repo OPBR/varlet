@@ -1,8 +1,7 @@
 <template>
   <div
-    class="var-sticky"
+    :class="classes(n(), [enableCSSMode, n('--css-mode')])"
     ref="stickyEl"
-    :class="[enableCSSMode ? 'var-sticky--css-mode' : null]"
     :style="{
       zIndex: toNumber(zIndex),
       top: enableCSSMode ? `${offsetTop}px` : undefined,
@@ -11,7 +10,7 @@
     }"
   >
     <div
-      class="var-sticky__wrapper"
+      :class="n('wrapper')"
       ref="wrapperEl"
       :style="{
         zIndex: toNumber(zIndex),
@@ -30,9 +29,12 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted, onActivated, onDeactivated, computed, watch } from 'vue'
 import { props } from './props'
-import { getParentScroller, toPxNum } from '../utils/elements'
+import { doubleRaf, getParentScroller, toPxNum } from '../utils/elements'
 import { toNumber } from '../utils/shared'
 import type { Ref, ComputedRef } from 'vue'
+import { call, createNamespace } from '../utils/components'
+
+const { n, classes } = createNamespace('sticky')
 
 export default defineComponent({
   name: 'VarSticky',
@@ -84,16 +86,15 @@ export default defineComponent({
           fixedWrapperHeight.value = `${wrapper.offsetHeight}px`
           isFixed.value = true
         }
-
-        onScroll?.(offsetTop.value, true)
+        call(onScroll, offsetTop.value, true)
       } else {
         isFixed.value = false
-
-        onScroll?.(currentOffsetTop, false)
+        call(onScroll, currentOffsetTop, false)
       }
     }
 
-    const addScrollListener = () => {
+    const addScrollListener = async () => {
+      await doubleRaf()
       scroller = getParentScroller(stickyEl.value as HTMLElement)
       scroller !== window && scroller.addEventListener('scroll', handleScroll)
       window.addEventListener('scroll', handleScroll)
@@ -116,6 +117,8 @@ export default defineComponent({
     onUnmounted(removeScrollListener)
 
     return {
+      n,
+      classes,
       stickyEl,
       wrapperEl,
       isFixed,

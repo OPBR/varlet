@@ -57,23 +57,24 @@ createApp().use(Cell)
 
 | 名称 | 说明 | 参数 |
 | ----- | -------------- | -------- |
-| `default` | cell的内容 | `-` |
-| `icon` | 自定义左侧icon区域 | `-` |
+| `default` | cell 的内容 | `-` |
+| `icon` | 自定义左侧 icon 区域 | `-` |
 | `desc` | 描述的内容 | `-` |
 | `extra` | 自定义右侧区域内容 | `-` |
 
 ### 样式变量
-以下为组件使用的css变量,可以使用[StyleProvider组件](#/zh-CN/style-provider)进行样式定制
+以下为组件使用的 css 变量，可以使用 [StyleProvider 组件](#/zh-CN/style-provider) 进行样式定制
 
-| 变量名 | 默认值 |
-| --- | --- |
-| `--cell-font-size` | `var(--font-size-md)` |
+| 变量名                     | 默认值 |
+|-------------------------| --- |
+| `--cell-color`          | `var(--color-text)` |
+| `--cell-font-size`      | `var(--font-size-md)` |
 | `--cell-desc-font-size` | `var(--font-size-sm)` |
-| `--cell-desc-color` | `rgba(0, 0, 0, 0.6)` |
-| `--cell-padding` | `10px 12px` |
-| `--cell-min-height` | `40px` |
-| `--cell-border-color` | `#bcc2cb` |
-| `--cell-border-left` | `12px` |
-| `--cell-border-right` | `12px` |
-| `--cell-icon-right` | `8px` |
-| `--cell-extra-left` | `8px` |
+| `--cell-desc-color`     | `rgba(0, 0, 0, 0.6)` |
+| `--cell-padding`        | `10px 12px` |
+| `--cell-min-height`     | `40px` |
+| `--cell-border-color`   | `#bcc2cb` |
+| `--cell-border-left`    | `12px` |
+| `--cell-border-right`   | `12px` |
+| `--cell-icon-right`     | `8px` |
+| `--cell-extra-left`     | `8px` |
